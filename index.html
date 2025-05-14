@@ -112,10 +112,9 @@
             </div>
 
             <div class="flex flex-col md:flex-row items-center md:items-start">
-                <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10 md:pl-16 lg:md:pl-20 md:pt-8">
+                <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10 md:pl-16 lg:md:pl-20 md:pt-12">
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight hero-heading-text">
-                        Let us in on what you've kept inside.
-                    </h1>
+                        Let us in on what you've kept&nbsp;inside. </h1>
                     <p class="text-lg hero-subtext mb-8">
                         Connect with a Trusted Psychologist Today.
                     </p>
@@ -137,13 +136,13 @@
                     </div>
                 </div>
 
-                <div class="w-full md:w-1/2 flex justify-center md:justify-end items-end mt-10 md:mt-0"> 
+                <div class="w-full md:w-1/2 flex justify-end items-end mt-10 md:mt-0"> 
                     <img src="app_screenshot.png"
                          alt="Phone App Screenshot"
                          class="rounded-3xl
-                                max-w-lg md:max-w-xl lg:max-w-2xl
-                                -mr-4 sm:-mr-8 md:-mr-10 lg:-mr-16 xl:-mr-20" 
-                                onerror="this.onerror=null;this.src='https://placehold.co/350x700/FEE2E2/991B1B?text=Image+Not+Found';" 
+                                max-w-md md:max-w-lg lg:max-w-xl 
+                                -mr-8 sm:-mr-12 md:-mr-16 lg:-mr-20 xl:-mr-24" 
+                                onerror="this.onerror=null;this.src='https://placehold.co/320x650/FEE2E2/991B1B?text=Image+Not+Found';" 
                          style="z-index: 5;" >
                 </div>
             </div>
@@ -251,7 +250,6 @@
         
         function createTestimonialCard(testimonial) {
             const cardDiv = document.createElement('div');
-            // Outer card padding remains p-2
             cardDiv.className = "testimonial-card w-10/12 sm:w-[47%] md:w-[31.5%] lg:w-[31.5%] p-2 flex-shrink-0"; 
             
             let profileImageHTML = '';
@@ -261,16 +259,12 @@
                 profileImageHTML = `<img src="${testimonial.imgSrc}" alt="${testimonial.alt}" class="w-20 h-20 rounded-full mb-3 object-cover shadow-sm">`;
             }
 
-            // Inner card padding: pt-5 (top), px-3 (left/right reduced), pb-3 (bottom reduced)
-            // Star rating bottom margin reduced to mb-2
-            // Name bottom margin reduced to mb-1
-            // min-h adjusted
             cardDiv.innerHTML = `
-                <div class="bg-white pt-5 px-1 pb-5 rounded-lg shadow-lg h-full flex flex-col items-center text-center min-h-[320px]"> 
+                <div class="bg-white pt-5 px-1 pb-3 rounded-lg shadow-lg h-full flex flex-col items-center text-center min-h-[320px]"> 
                     ${profileImageHTML}
                     <h3 class="text-lg font-semibold text-gray-800 mb-1">${testimonial.name}</h3> 
-                    <div class="flex text-yellow-400 text-lg mb-7">${createStarRating(testimonial.stars)}</div> 
-                    <p class="text-gray-600 text-sm leading-relaxed max-w-[200px] mx-auto">${testimonial.review}</p> 
+                    <div class="flex text-yellow-400 text-lg mb-1">${createStarRating(testimonial.stars)}</div> 
+                    <p class="text-gray-600 text-sm leading-relaxed max-w-[170px] mx-auto">${testimonial.review}</p> 
                 </div>
             `;
             return cardDiv;
