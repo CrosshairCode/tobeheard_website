@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TBH Hero Section</title>
+    <title>TBH Hero Section & Footer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -14,76 +14,215 @@
         /* Fallback for Inter font if not loaded by Tailwind */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-        /* Additional styling for a subtle gradient or background if desired */
         .hero-bg {
-            background-color: #E0F2FE; /* A light blue, similar to the image */
+            background-color: #bfe0e9; /* Hero background color */
+            color: #1F2937; /* Default dark gray text for hero section for contrast */
+        }
+        .hero-nav-link {
+            color: #374151; /* Medium gray for nav links */
+        }
+        .hero-nav-link:hover {
+            color: #111827; /* Darker gray on hover */
+        }
+        .hero-subtext {
+            color: #4B5563; /* Slightly lighter medium gray for paragraph */
+        }
+        .hero-heading-text {
+            color: #111827; /* Darkest gray/black for main heading */
+        }
+
+        .footer-bg {
+            background-color: #111769; /* Changed footer background color */
+            color: #A0A0A0; 
+        }
+        .footer-link {
+            color: #A0A0A0; 
+        }
+        .footer-link:hover {
+            color: #FFFFFF; 
+        }
+        .footer-heading {
+            color: #FFFFFF; 
+            font-weight: 600; 
+        }
+        html {
+            height: 100%;
+        }
+        body {
+            min-height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .main-content {
+            flex-grow: 1;
+        }
+        /* Mobile menu background - ensure contrast with light hero */
+        .mobile-menu-bg {
+            background-color: #a8d3e0; /* Slightly darker shade of hero-bg or a contrasting light color */
         }
     </style>
 </head>
-<body class="hero-bg">
+<body class="flex flex-col min-h-screen">
 
-    <div class="container mx-auto px-4 pt-6 pb-8 md:pt-10 md:pb-16 rounded-lg">
-        <nav class="relative flex items-center justify-between mb-12 md:mb-20">
-            <div class="text-3xl font-bold text-slate-800 z-10 ml-6">
-                <img src="tbh_logo.png" alt="tbh logo" class="h-14 w-auto">
-            </div>
+    <main class="main-content hero-bg">
+        <div class="container mx-auto px-4 pt-6 pb-8 md:pt-10 md:pb-16 rounded-lg relative">
+            <nav class="relative flex items-center justify-between mb-12 md:mb-20">
+                <div class="text-3xl font-bold z-20 ml-6"> 
+                    <img src="tbh_logo.png" alt="tbh logo" class="h-16 w-auto">
+                </div>
 
-            <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden md:flex space-x-8 text-slate-700">
-                <a href="#" class="hover:text-blue-600">Mission</a>
-                <a href="#" class="hover:text-blue-600">Product</a>
-                <a href="#" class="hover:text-blue-600">Leadership</a>
-            </div>
+                <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden md:flex space-x-8 z-20">
+                    <a href="#" class="hero-nav-link hover:text-gray-900">Mission</a>
+                    <a href="#" class="hero-nav-link hover:text-gray-900">Product</a>
+                    <a href="#" class="hero-nav-link hover:text-gray-900">Leadership</a>
+                </div>
 
-            <div class="z-10 flex items-center justify-end w-auto mr-2 sm:mr-4">
-                <div class="md:hidden">
-                    <button class="text-slate-700 focus:outline-none p-2 rounded-md hover:bg-slate-100">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <div class="relative z-30 flex items-center justify-end w-auto mr-2 sm:mr-4">
+                    <div class="md:hidden">
+                        <button id="hamburgerButton" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-blue-200">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="mobileMenu" class="hidden md:hidden fixed inset-0 mobile-menu-bg p-6 z-50">
+                <div class="flex justify-between items-center mb-8">
+                    <div class="text-3xl font-bold"> 
+                         <img src="tbh_logo.png" alt="tbh logo" class="h-14 w-auto">
+                    </div>
+                    <button id="closeMobileMenu" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-blue-200">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
+                <nav class="flex flex-col space-y-4">
+                    <a href="#" class="text-gray-700 hover:text-gray-900 text-lg py-2">Mission</a>
+                    <a href="#" class="text-gray-700 hover:text-gray-900 text-lg py-2">Product</a>
+                    <a href="#" class="text-gray-700 hover:text-gray-900 text-lg py-2">Leadership</a>
+                </nav>
             </div>
-        </nav>
 
-        <div class="flex flex-col md:flex-row items-center md:items-start">
-            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10 md:pl-12 md:pt-8">
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-800 mb-6 leading-tight">
-                    Let us in on what you've kept inside.
-                </h1>
-                <p class="text-lg text-slate-600 mb-8">
-                    Connect with a Trusted Psychologist Today.
-                </p>
-                <div class="flex flex-row justify-center space-x-3 sm:space-x-4 md:justify-start">
-                    <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-800 transition duration-300 flex items-center justify-center shadow-md">
-                        <img src="app_store.png" alt="App Store Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=&fontsize=20';">
-                        <div class="text-left">
-                            <div class="text-xs">Available on the</div>
-                            <div class="text-sm sm:text-lg font-semibold">App Store</div>
-                        </div>
-                    </a>
-                    <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-800 transition duration-300 flex items-center justify-center shadow-md">
-                        <img src="play_store.png" alt="Google Play Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=▶&fontsize=20';">
-                        <div class="text-left">
-                            <div class="text-xs">GET IT ON</div>
-                            <div class="text-sm sm:text-lg font-semibold">Google Play</div>
-                        </div>
-                    </a>
+            <div class="flex flex-col md:flex-row items-center md:items-start">
+                <div class="md:w-1/2 text-left mb-10 md:mb-0 md:pr-10 md:pl-16 lg:md:pl-20 md:pt-8">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight hero-heading-text">
+                        Let us in on what you've kept inside.
+                    </h1>
+                    <p class="text-lg hero-subtext mb-8">
+                        Connect with a Trusted Psychologist Today.
+                    </p>
+                    <div class="flex flex-row justify-start space-x-3 sm:space-x-4">
+                        <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center justify-center shadow-md">
+                            <img src="app_store.png" alt="App Store Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=&fontsize=20';">
+                            <div class="text-left">
+                                <div class="text-xs">Available on the</div>
+                                <div class="text-sm sm:text-lg font-semibold">App Store</div>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center justify-center shadow-md">
+                            <img src="play_store.png" alt="Google Play Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=▶&fontsize=20';">
+                            <div class="text-left">
+                                <div class="text-xs">GET IT ON</div>
+                                <div class="text-sm sm:text-lg font-semibold">Google Play</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 flex justify-center md:justify-end items-end mt-10 md:mt-0">
+                    <img src="app_screenshot.png"
+                         alt="Phone App Screenshot"
+                         class="rounded-3xl
+                                max-w-lg md:max-w-xl lg:max-w-2xl
+                                transform transition-transform duration-500 hover:scale-105 
+                                -mr-4 sm:-mr-8 md:-mr-10 lg:-mr-16 xl:-mr-20 "
+                         onerror="this.onerror=null;this.src='https://placehold.co/350x700/FEE2E2/991B1B?text=Image+Not+Found';" 
+                         style="z-index: 5;" >
                 </div>
             </div>
+        </div>
+    </main>
 
-            <div class="md:w-1/2 flex justify-end items-end mt-10 md:mt-0">
-                <img src="app_screenshot.png"
-                     alt="Phone App Screenshot"
-                     class="rounded-3xl
-                            max-w-lg md:max-w-xl lg:max-w-2xl
-                            transform transition-transform duration-500 hover:scale-105 
-                            md:-mr-8 lg:-mr-12 xl:-mr-16 
-                            md:-mb-12 lg:-mb-16 xl:-mb-20
-                           "
-                     onerror="this.onerror=null;this.src='https://placehold.co/350x700/FEE2E2/991B1B?text=Image+Not+Found';" 
-                     style="z-index: 5;"
-                >
+    <footer class="footer-bg py-12 lg:py-16">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-12 gap-8 items-start">
+                <div class="md:col-span-1 lg:col-span-5 flex flex-col items-start">
+                    <img src="tbh_logo.png" alt="tbh logo white" class="h-16 w-auto mb-6 filter brightness-0 invert">
+                    <div class="flex space-x-3 mb-6">
+                        <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-linkedin-in fa-lg p-3 bg-gray-700 rounded-md"></i>
+                        </a>
+                        <a href="#" aria-label="Instagram" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-instagram fa-lg p-3 bg-gray-700 rounded-md"></i>
+                        </a>
+                        <a href="#" aria-label="Twitter" class="text-gray-400 hover:text-white transition-colors duration-300">
+                            <i class="fab fa-twitter fa-lg p-3 bg-gray-700 rounded-md"></i>
+                        </a>
+                    </div>
+                    <p class="text-sm text-left">&copy; 2025 To Be Heard</p>
+                </div>
+
+                <div class="hidden lg:block lg:col-span-1"></div>
+
+                <div class="md:col-span-1 lg:col-span-3 text-left">
+                    <h3 class="footer-heading text-lg mb-4">About us</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-sm">Company</a></li>
+                        <li><a href="#" class="footer-link text-sm">Careers</a></li>
+                        <li><a href="#" class="footer-link text-sm">News</a></li>
+                        <li><a href="#" class="footer-link text-sm">Press</a></li>
+                    </ul>
+                </div>
+
+                <div class="md:col-span-1 lg:col-span-3 text-left">
+                    <h3 class="footer-heading text-lg mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="footer-link text-sm">Terms of service</a></li>
+                        <li><a href="#" class="footer-link text-sm">Privacy</a></li>
+                        <li><a href="#" class="footer-link text-sm">Legal</a></li> 
+                        <li><a href="#" class="footer-link text-sm">Cookie Policy</a></li>
+                        <li><a href="#" class="footer-link text-sm">Cookie Settings</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+    </footer>
+
+    <script>
+        // Get references to the menu elements
+        const hamburgerButton = document.getElementById('hamburgerButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMobileMenuButton = document.getElementById('closeMobileMenu');
+
+        console.log('Script loaded.'); 
+        if (!hamburgerButton) console.error('Hamburger button not found!');
+        if (!mobileMenu) console.error('Mobile menu element not found!');
+        if (!closeMobileMenuButton) console.error('Close mobile menu button not found!');
+
+        if (hamburgerButton) {
+            hamburgerButton.addEventListener('click', () => {
+                console.log('Hamburger button clicked!'); 
+                if (mobileMenu) {
+                    mobileMenu.classList.toggle('hidden'); 
+                    console.log('Mobile menu hidden class toggled. Is it hidden?', mobileMenu.classList.contains('hidden'));
+                } else {
+                    console.error('Mobile menu element not found on click!');
+                }
+            });
+        }
+
+        if (closeMobileMenuButton) {
+            closeMobileMenuButton.addEventListener('click', () => {
+                console.log('Close mobile menu button clicked!'); 
+                if (mobileMenu) {
+                    mobileMenu.classList.add('hidden');
+                    console.log('Mobile menu hidden class added.');
+                } else {
+                    console.error('Mobile menu element not found on close click!');
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
