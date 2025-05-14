@@ -61,6 +61,23 @@
         .mobile-menu-bg {
             background-color: #a8d3e0; 
         }
+
+        /* Carousel specific styles */
+        .testimonial-carousel-container {
+            scroll-behavior: smooth; 
+            -webkit-overflow-scrolling: touch; 
+        }
+        .testimonial-card {
+            flex: 0 0 auto; 
+        }
+        /* Hide scrollbar for clean look, but still scrollable */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -134,9 +151,8 @@
                          alt="Phone App Screenshot"
                          class="rounded-3xl
                                 max-w-lg md:max-w-xl lg:max-w-2xl
-                                transform transition-transform duration-500 hover:scale-105 
                                 -mr-4 sm:-mr-8 md:-mr-10 lg:-mr-16 xl:-mr-20" 
-                         onerror="this.onerror=null;this.src='https://placehold.co/350x700/FEE2E2/991B1B?text=Image+Not+Found';" 
+                                onerror="this.onerror=null;this.src='https://placehold.co/350x700/FEE2E2/991B1B?text=Image+Not+Found';" 
                          style="z-index: 5;" >
                 </div>
             </div>
@@ -145,27 +161,15 @@
 
     <section class="bg-white relative z-0 shadow-lg">
         <div class="container mx-auto px-6 lg:px-8 py-16 md:py-24 text-center">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">Our Amazing Features</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto mb-10">
-                Discover why our platform is the best choice for your needs. We offer a unique blend of features designed for optimal user experience and effectiveness.
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">What Our Users Say</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-12">
+                Hear from individuals who have found support and growth with us.
             </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="p-6 border border-gray-200 rounded-lg">
-                    <i class="fas fa-cogs fa-3x text-blue-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Feature One</h3>
-                    <p class="text-gray-500 text-sm">Innovative tools and technology to help you achieve your goals faster.</p>
+            
+            <div class="relative">
+                <div id="testimonialCarousel" class="testimonial-carousel-container flex overflow-x-auto pb-4 hide-scrollbar">
+                    </div>
                 </div>
-                <div class="p-6 border border-gray-200 rounded-lg">
-                    <i class="fas fa-users fa-3x text-green-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Feature Two</h3>
-                    <p class="text-gray-500 text-sm">A supportive community and expert guidance every step of the way.</p>
-                </div>
-                <div class="p-6 border border-gray-200 rounded-lg">
-                    <i class="fas fa-chart-line fa-3x text-purple-500 mb-4"></i>
-                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Feature Three</h3>
-                    <p class="text-gray-500 text-sm">Track your progress with insightful analytics and reports.</p>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -174,7 +178,7 @@
         <div class="container mx-auto px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-8 items-start">
                 <div class="flex flex-col items-start text-left md:col-span-1 lg:col-start-2 lg:col-span-5">
-                    <img src="tbh_logo.png" alt="tbh logo white" class="h-16 w-auto mb-6 filter brightness-0 invert">
+                    <img src="tbhlogo_white.png" alt="tbh logo white" class="h-16 w-auto mb-6">
                     <div class="flex space-x-3 mb-6">
                         <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-white transition-colors duration-300">
                             <i class="fab fa-linkedin-in fa-lg p-3 bg-gray-700 rounded-md"></i>
@@ -214,37 +218,187 @@
     </footer>
 
     <script>
-        // Get references to the menu elements
+        // Mobile Menu Script
         const hamburgerButton = document.getElementById('hamburgerButton');
         const mobileMenu = document.getElementById('mobileMenu');
         const closeMobileMenuButton = document.getElementById('closeMobileMenu');
 
-        console.log('Script loaded.'); 
-        if (!hamburgerButton) console.error('Hamburger button not found!');
-        if (!mobileMenu) console.error('Mobile menu element not found!');
-        if (!closeMobileMenuButton) console.error('Close mobile menu button not found!');
-
-        if (hamburgerButton) {
+        if (hamburgerButton && mobileMenu && closeMobileMenuButton) {
             hamburgerButton.addEventListener('click', () => {
-                console.log('Hamburger button clicked!'); 
-                if (mobileMenu) {
-                    mobileMenu.classList.toggle('hidden'); 
-                    console.log('Mobile menu hidden class toggled. Is it hidden?', mobileMenu.classList.contains('hidden'));
-                } else {
-                    console.error('Mobile menu element not found on click!');
-                }
+                mobileMenu.classList.toggle('hidden');
+            });
+            closeMobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
             });
         }
 
-        if (closeMobileMenuButton) {
-            closeMobileMenuButton.addEventListener('click', () => {
-                console.log('Close mobile menu button clicked!'); 
-                if (mobileMenu) {
-                    mobileMenu.classList.add('hidden');
-                    console.log('Mobile menu hidden class added.');
+        // Testimonial Carousel Script
+        const carousel = document.getElementById('testimonialCarousel');
+        // const prevButton = document.getElementById('prevButton'); // Button removed
+        // const nextButton = document.getElementById('nextButton'); // Button removed
+
+        const testimonialsData = [
+            { imgSrc: "https://placehold.co/80x80/E0F2FE/1F2937?text=Woman", alt: "User Jane S.", name: "Jane S.", stars: 5, review: "This app has been a game-changer for my mental well-being. The therapists are so understanding and provide practical advice. Highly recommend!" },
+            { isAnonymous: true, name: "Anonymous", stars: 4, review: "I was hesitant at first, but finding a safe space to talk has made a huge difference. The anonymity option was really important for me." },
+            { imgSrc: "https://placehold.co/80x80/D1FAE5/065F46?text=Man", alt: "User Mark A.", name: "Mark A.", stars: 4.5, review: "The variety of resources and the quality of the consultations exceeded my expectations. It's easy to use and truly helpful." },
+            { imgSrc: "https://placehold.co/80x80/FEF3C7/92400E?text=Woman2", alt: "User Lisa P.", name: "Lisa P.", stars: 5, review: "Connecting with my psychologist through this app felt just as personal and effective as in-person sessions. So convenient!" },
+            { imgSrc: "https://placehold.co/80x80/E0E7FF/1E3A8A?text=UserX", alt: "User Alex B.", name: "Alex B.", stars: 4, review: "Great interface and very responsive support team. Made getting help much less daunting." },
+            { isAnonymous: true, name: "Anonymous", stars: 5, review: "Finally, an app that truly prioritizes user privacy while offering top-notch mental health support. Thank you!" }
+        ];
+
+        function createStarRating(rating) {
+            let starsHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    starsHTML += '<i class="fas fa-star"></i>';
+                } else if (i - 0.5 === rating) {
+                    starsHTML += '<i class="fas fa-star-half-alt"></i>';
                 } else {
-                    console.error('Mobile menu element not found on close click!');
+                    starsHTML += '<i class="far fa-star"></i>';
                 }
+            }
+            return starsHTML;
+        }
+        
+        function createTestimonialCard(testimonial) {
+            const cardDiv = document.createElement('div');
+            // Adjusted card widths: w-10/12 (almost full for XS), sm:w-2/5 (2 cards), md:w-1/3 (3 cards), lg:w-1/4 (4 cards, but we aim for 3 visible)
+            // To show 3 centered on LG, the parent container of the carousel might need a max-width or we adjust scroll logic
+            // For now, making cards slimmer:
+            cardDiv.className = "testimonial-card w-11/12 sm:w-[45%] md:w-[31%] lg:w-[30%] p-2 flex-shrink-0"; // Slimmer cards with p-2
+            
+            let profileImageHTML = '';
+            if (testimonial.isAnonymous) {
+                profileImageHTML = `<svg class="w-20 h-20 rounded-full mb-4 text-gray-400 bg-gray-200 p-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>`;
+            } else {
+                profileImageHTML = `<img src="${testimonial.imgSrc}" alt="${testimonial.alt}" class="w-20 h-20 rounded-full mb-4 object-cover">`;
+            }
+
+            cardDiv.innerHTML = `
+                <div class="bg-gray-50 p-4 rounded-lg shadow-md h-full flex flex-col items-center min-h-[360px]"> ${profileImageHTML}
+                    <h3 class="text-lg font-semibold text-gray-700 mb-1">${testimonial.name}</h3> <div class="flex text-yellow-400 mb-3">
+                        ${createStarRating(testimonial.stars)}
+                    </div>
+                    <p class="text-gray-600 text-xs italic text-center leading-relaxed">${testimonial.review}</p> </div>
+            `;
+            return cardDiv;
+        }
+
+        if (carousel) { // Removed button checks as they are gone
+            let cardWidth = 0;
+            let numOriginalCards = testimonialsData.length;
+            let isTransitioning = false;
+            let currentIndex = 0; // Start at the first "real" card in the logical sequence
+            let autoScrollInterval;
+            const SCROLL_INTERVAL_MS = 50; // 5 seconds
+
+            function calculateCardWidth() {
+                const firstCard = carousel.querySelector('.testimonial-card');
+                if (firstCard) {
+                    const style = window.getComputedStyle(firstCard);
+                    const marginLeft = parseInt(style.marginLeft, 10) || 0;
+                    const marginRight = parseInt(style.marginRight, 10) || 0;
+                    cardWidth = firstCard.offsetWidth + marginLeft + marginRight;
+                } else {
+                    cardWidth = carousel.offsetWidth / 3; // Fallback if no cards, assume 3 visible
+                    if (window.innerWidth < 768) cardWidth = carousel.offsetWidth * 0.9; // ~1 card on mobile
+                    else if (window.innerWidth < 1024) cardWidth = carousel.offsetWidth * 0.45; // ~2 cards on tablet
+                }
+            }
+
+            function populateAndCloneCards() {
+                carousel.innerHTML = ''; 
+                
+                const originalCardElements = testimonialsData.map(createTestimonialCard);
+
+                // To ensure enough items for smooth infinite scroll, especially if numOriginalCards < 3
+                const itemsToDisplay = 3; // Number of items we want to see at once on large screens
+                const clonesNeeded = Math.max(itemsToDisplay, numOriginalCards);
+
+
+                // Prepend clones (last 'clonesNeeded' items from original set)
+                for (let i = 0; i < clonesNeeded; i++) {
+                    const originalIndex = (numOriginalCards - (clonesNeeded - i)) % numOriginalCards;
+                    const cardDataIndex = (originalIndex + numOriginalCards) % numOriginalCards; // Ensure positive index
+                    const clone = createTestimonialCard(testimonialsData[cardDataIndex]);
+                    carousel.insertBefore(clone, carousel.firstChild);
+                }
+                
+                originalCardElements.forEach(card => carousel.appendChild(card));
+                
+                // Append clones (first 'clonesNeeded' items from original set)
+                for (let i = 0; i < clonesNeeded; i++) {
+                    const clone = createTestimonialCard(testimonialsData[i % numOriginalCards]);
+                    carousel.appendChild(clone);
+                }
+                
+                calculateCardWidth(); 
+                currentIndex = clonesNeeded; // Start at the first "real" card
+                carousel.scrollTo({ left: currentIndex * cardWidth, behavior: 'instant' });
+            }
+            
+            function handleAutoScroll() {
+                if (isTransitioning || cardWidth === 0) return;
+                isTransitioning = true;
+
+                currentIndex++; // Always scroll left (visually, which means increasing scrollLeft)
+                
+                carousel.scrollTo({
+                    left: carousel.scrollLeft + cardWidth,
+                    behavior: 'smooth'
+                });
+
+                carousel.addEventListener('scrollend', function handleScrollEnd() {
+                    carousel.removeEventListener('scrollend', handleScrollEnd);
+                    
+                    // After scrolling past the "original" set + first set of clones
+                    if (currentIndex >= numOriginalCards + (clonesNeeded)) { 
+                        currentIndex = clonesNeeded; // Reset to the start of the "original" set
+                        carousel.scrollTo({ left: currentIndex * cardWidth, behavior: 'instant' });
+                    }
+                    isTransitioning = false;
+                }, { once: true });
+
+                setTimeout(() => { // Fallback for scrollend
+                    if (isTransitioning) {
+                         if (currentIndex >= numOriginalCards + (clonesNeeded)) { 
+                            currentIndex = clonesNeeded; 
+                            carousel.scrollTo({ left: currentIndex * cardWidth, behavior: 'instant' });
+                        }
+                        isTransitioning = false;
+                    }
+                }, 600); 
+            }
+
+            function startAutoScroll() {
+                stopAutoScroll(); // Clear any existing interval
+                autoScrollInterval = setInterval(handleAutoScroll, SCROLL_INTERVAL_MS);
+            }
+
+            function stopAutoScroll() {
+                clearInterval(autoScrollInterval);
+            }
+            
+            function initializeCarousel() {
+                populateAndCloneCards();
+                startAutoScroll();
+            }
+
+            carousel.addEventListener('mouseenter', stopAutoScroll);
+            carousel.addEventListener('mouseleave', startAutoScroll);
+
+            window.addEventListener('load', initializeCarousel);
+            if (document.readyState === 'complete') { 
+                initializeCarousel();
+            }
+            
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                stopAutoScroll();
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    initializeCarousel(); // Re-initialize to recalculate widths and clones
+                }, 250);
             });
         }
     </script>
