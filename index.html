@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBH Hero Section</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom font - Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Fallback for Inter font if not loaded by Tailwind */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        /* Additional styling for a subtle gradient or background if desired */
+        .hero-bg {
+            background-color: #E0F2FE; /* A light blue, similar to the image */
+        }
+    </style>
+</head>
+<body class="hero-bg">
+
+    <div class="container mx-auto px-4 py-8 md:py-16 rounded-lg">
+        <nav class="flex items-center justify-between mb-12 md:mb-20">
+            <div class="text-3xl font-bold text-slate-800">
+                <span class="text-blue-600">&#x2728;</span>tbh
+            </div>
+            <div class="hidden md:flex space-x-8 text-slate-700">
+                <a href="#" class="hover:text-blue-600">Mission</a>
+                <a href="#" class="hover:text-blue-600">Product</a>
+                <a href="#" class="hover:text-blue-600">Leadership</a>
+            </div>
+            <div class="md:hidden">
+                <button class="text-slate-700 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-800 mb-6 leading-tight">
+                    Let us in on what you've kept inside.
+                </h1>
+                <p class="text-lg text-slate-600 mb-8">
+                    Connect with a Trusted Psychologist Today.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#" class="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition duration-300 flex items-center justify-center shadow-md">
+                        <img src="https://placehold.co/30x30/ffffff/000000?text=" alt="App Store Icon" class="w-6 h-6 mr-2 rounded">
+                        <div>
+                            <div class="text-xs">Available on the</div>
+                            <div class="text-lg font-semibold">App Store</div>
+                        </div>
+                    </a>
+                    <a href="#" class="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition duration-300 flex items-center justify-center shadow-md">
+                        <img src="https://placehold.co/30x30/ffffff/000000?text=▶" alt="Google Play Icon" class="w-6 h-6 mr-2 rounded">
+                        <div>
+                            <div class="text-xs">GET IT ON</div>
+                            <div class="text-lg font-semibold">Google Play</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://placehold.co/280x580/CCCCCC/777777?text=App+Screenshot+Here"
+                     alt="Phone App Screenshot"
+                     class="rounded-3xl shadow-2xl max-w-xs md:max-w-sm lg:max-w-md transform transition-transform duration-500 hover:scale-105"
+                     onerror="this.onerror=null;this.src='https://placehold.co/280x580/FEE2E2/991B1B?text=Image+Not+Found';"
+                >
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
