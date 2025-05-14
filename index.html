@@ -23,19 +23,21 @@
 <body class="hero-bg">
 
     <div class="container mx-auto px-4 py-8 md:py-16 rounded-lg">
-        <nav class="flex items-center justify-between mb-12 md:mb-20">
-            <div class="text-3xl font-bold text-slate-800">
-                <span class="text-blue-600">&#x2728;</span>tbh
+        <nav class="relative flex items-center justify-between mb-12 md:mb-20">
+            <div class="text-3xl font-bold text-slate-800 z-10 ml-4">
+                <img src="tbh_logo.png" alt="tbh logo" class="h-12 w-auto">
             </div>
-            <div class="hidden md:flex space-x-8 text-slate-700">
+
+            <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden md:flex space-x-8 text-slate-700">
                 <a href="#" class="hover:text-blue-600">Mission</a>
                 <a href="#" class="hover:text-blue-600">Product</a>
                 <a href="#" class="hover:text-blue-600">Leadership</a>
             </div>
-            <div class="md:hidden">
-                <button class="text-slate-700 focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
+
+            <div class="z-10 flex items-center justify-end w-10 h-10 mr-4"> <div class="md:hidden"> <button class="text-slate-700 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
             </div>
         </nav>
 
@@ -48,28 +50,26 @@
                     Connect with a Trusted Psychologist Today.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#" class="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition duration-300 flex items-center justify-center shadow-md">
-                        <img src="https://placehold.co/30x30/ffffff/000000?text=" alt="App Store Icon" class="w-6 h-6 mr-2 rounded">
-                        <div>
-                            <div class="text-xs">Available on the</div>
-                            <div class="text-lg font-semibold">App Store</div>
-                        </div>
+                    <a href="#" class="inline-block rounded-lg hover:opacity-80 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="Download on the App Store">
+                        <img src="app_store.png" alt="Download on the App Store" class="h-12 w-auto rounded-md shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/135x40/CCCCCC/777777?text=App+Store';this.classList.remove('shadow-md');">
                     </a>
-                    <a href="#" class="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition duration-300 flex items-center justify-center shadow-md">
-                        <img src="https://placehold.co/30x30/ffffff/000000?text=▶" alt="Google Play Icon" class="w-6 h-6 mr-2 rounded">
-                        <div>
-                            <div class="text-xs">GET IT ON</div>
-                            <div class="text-lg font-semibold">Google Play</div>
-                        </div>
+                    <a href="#" class="inline-block rounded-lg hover:opacity-80 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="Get it on Google Play">
+                        <img src="play_store.png" alt="Get it on Google Play" class="h-12 w-auto rounded-md shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/135x40/CCCCCC/777777?text=Google+Play';this.classList.remove('shadow-md');">
                     </a>
                 </div>
             </div>
 
-            <div class="md:w-1/2 flex justify-center">
-                <img src="https://placehold.co/280x580/CCCCCC/777777?text=App+Screenshot+Here"
+            <div class="md:w-1/2 flex justify-end items-end">
+                <img src="app_screenshot.png"
                      alt="Phone App Screenshot"
-                     class="rounded-3xl shadow-2xl max-w-xs md:max-w-sm lg:max-w-md transform transition-transform duration-500 hover:scale-105"
-                     onerror="this.onerror=null;this.src='https://placehold.co/280x580/FEE2E2/991B1B?text=Image+Not+Found';"
+                     class="rounded-3xl shadow-2xl 
+                            max-w-md md:max-w-lg lg:max-w-xl
+                            transform transition-transform duration-500 hover:scale-105 
+                            md:-mr-8 lg:-mr-12 xl:-mr-16 
+                            md:-mb-12 lg:-mb-16 xl:-mb-20
+                           "
+                     onerror="this.onerror=null;this.src='https://placehold.co/320x650/FEE2E2/991B1B?text=Image+Not+Found';" 
+                     style="z-index: 5;"
                 >
             </div>
         </div>
