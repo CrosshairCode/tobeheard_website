@@ -22,10 +22,10 @@
 </head>
 <body class="hero-bg">
 
-    <div class="container mx-auto px-4 py-8 md:py-16 rounded-lg">
+    <div class="container mx-auto px-4 pt-6 pb-8 md:pt-10 md:pb-16 rounded-lg">
         <nav class="relative flex items-center justify-between mb-12 md:mb-20">
-            <div class="text-3xl font-bold text-slate-800 z-10 ml-4">
-                <img src="tbh_logo.png" alt="tbh logo" class="h-12 w-auto">
+            <div class="text-3xl font-bold text-slate-800 z-10 ml-6">
+                <img src="tbh_logo.png" alt="tbh logo" class="h-14 w-auto">
             </div>
 
             <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden md:flex space-x-8 text-slate-700">
@@ -34,41 +34,51 @@
                 <a href="#" class="hover:text-blue-600">Leadership</a>
             </div>
 
-            <div class="z-10 flex items-center justify-end w-10 h-10 mr-4"> <div class="md:hidden"> <button class="text-slate-700 focus:outline-none">
+            <div class="z-10 flex items-center justify-end w-auto mr-2 sm:mr-4">
+                <div class="md:hidden">
+                    <button class="text-slate-700 focus:outline-none p-2 rounded-md hover:bg-slate-100">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                     </button>
                 </div>
             </div>
         </nav>
 
-        <div class="flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10">
+        <div class="flex flex-col md:flex-row items-center md:items-start">
+            <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10 md:pl-12 md:pt-8">
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-800 mb-6 leading-tight">
                     Let us in on what you've kept inside.
                 </h1>
                 <p class="text-lg text-slate-600 mb-8">
                     Connect with a Trusted Psychologist Today.
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#" class="inline-block rounded-lg hover:opacity-80 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="Download on the App Store">
-                        <img src="app_store.png" alt="Download on the App Store" class="h-12 w-auto rounded-md shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/135x40/CCCCCC/777777?text=App+Store';this.classList.remove('shadow-md');">
+                <div class="flex flex-row justify-center space-x-3 sm:space-x-4 md:justify-start">
+                    <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-800 transition duration-300 flex items-center justify-center shadow-md">
+                        <img src="app_store.png" alt="App Store Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=&fontsize=20';">
+                        <div class="text-left">
+                            <div class="text-xs">Available on the</div>
+                            <div class="text-sm sm:text-lg font-semibold">App Store</div>
+                        </div>
                     </a>
-                    <a href="#" class="inline-block rounded-lg hover:opacity-80 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="Get it on Google Play">
-                        <img src="play_store.png" alt="Get it on Google Play" class="h-12 w-auto rounded-md shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/135x40/CCCCCC/777777?text=Google+Play';this.classList.remove('shadow-md');">
+                    <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-800 transition duration-300 flex items-center justify-center shadow-md">
+                        <img src="play_store.png" alt="Google Play Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=▶&fontsize=20';">
+                        <div class="text-left">
+                            <div class="text-xs">GET IT ON</div>
+                            <div class="text-sm sm:text-lg font-semibold">Google Play</div>
+                        </div>
                     </a>
                 </div>
             </div>
 
-            <div class="md:w-1/2 flex justify-end items-end">
+            <div class="md:w-1/2 flex justify-end items-end mt-10 md:mt-0">
                 <img src="app_screenshot.png"
                      alt="Phone App Screenshot"
-                     class="rounded-3xl shadow-2xl 
-                            max-w-md md:max-w-lg lg:max-w-xl
+                     class="rounded-3xl
+                            max-w-lg md:max-w-xl lg:max-w-2xl
                             transform transition-transform duration-500 hover:scale-105 
                             md:-mr-8 lg:-mr-12 xl:-mr-16 
                             md:-mb-12 lg:-mb-16 xl:-mb-20
                            "
-                     onerror="this.onerror=null;this.src='https://placehold.co/320x650/FEE2E2/991B1B?text=Image+Not+Found';" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/350x700/FEE2E2/991B1B?text=Image+Not+Found';" 
                      style="z-index: 5;"
                 >
             </div>
