@@ -32,7 +32,7 @@
         }
 
         .footer-bg {
-            background-color: #111769; /* Changed footer background color */
+            background-color: #111769; /* Footer background color */
             color: #A0A0A0; 
         }
         .footer-link {
@@ -54,19 +54,19 @@
             display: flex;
             flex-direction: column;
         }
-        .main-content {
+        .main-content-wrapper { 
             flex-grow: 1;
         }
         /* Mobile menu background - ensure contrast with light hero */
         .mobile-menu-bg {
-            background-color: #a8d3e0; /* Slightly darker shade of hero-bg or a contrasting light color */
+            background-color: #a8d3e0; 
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <main class="main-content hero-bg">
-        <div class="container mx-auto px-4 pt-6 pb-8 md:pt-10 md:pb-16 rounded-lg relative">
+    <main class="main-content-wrapper hero-bg"> 
+        <div class="container mx-auto px-4 pt-6 rounded-lg relative">
             <nav class="relative flex items-center justify-between mb-12 md:mb-20">
                 <div class="text-3xl font-bold z-20 ml-6"> 
                     <img src="tbh_logo.png" alt="tbh logo" class="h-16 w-auto">
@@ -104,14 +104,14 @@
             </div>
 
             <div class="flex flex-col md:flex-row items-center md:items-start">
-                <div class="md:w-1/2 text-left mb-10 md:mb-0 md:pr-10 md:pl-16 lg:md:pl-20 md:pt-8">
+                <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10 md:pl-16 lg:md:pl-20 md:pt-8">
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight hero-heading-text">
                         Let us in on what you've kept inside.
                     </h1>
                     <p class="text-lg hero-subtext mb-8">
                         Connect with a Trusted Psychologist Today.
                     </p>
-                    <div class="flex flex-row justify-start space-x-3 sm:space-x-4">
+                    <div class="flex flex-row justify-center md:justify-start space-x-3 sm:space-x-4">
                         <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center justify-center shadow-md">
                             <img src="app_store.png" alt="App Store Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=&fontsize=20';">
                             <div class="text-left">
@@ -129,13 +129,13 @@
                     </div>
                 </div>
 
-                <div class="w-full md:w-1/2 flex justify-center md:justify-end items-end mt-10 md:mt-0">
+                <div class="w-full md:w-1/2 flex justify-center md:justify-end items-end mt-10 md:mt-0"> 
                     <img src="app_screenshot.png"
                          alt="Phone App Screenshot"
                          class="rounded-3xl
                                 max-w-lg md:max-w-xl lg:max-w-2xl
                                 transform transition-transform duration-500 hover:scale-105 
-                                -mr-4 sm:-mr-8 md:-mr-10 lg:-mr-16 xl:-mr-20 "
+                                -mr-4 sm:-mr-8 md:-mr-10 lg:-mr-16 xl:-mr-20" 
                          onerror="this.onerror=null;this.src='https://placehold.co/350x700/FEE2E2/991B1B?text=Image+Not+Found';" 
                          style="z-index: 5;" >
                 </div>
@@ -143,10 +143,37 @@
         </div>
     </main>
 
-    <footer class="footer-bg py-12 lg:py-16">
+    <section class="bg-white relative z-0 shadow-lg">
+        <div class="container mx-auto px-6 lg:px-8 py-16 md:py-24 text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">Our Amazing Features</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-10">
+                Discover why our platform is the best choice for your needs. We offer a unique blend of features designed for optimal user experience and effectiveness.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 border border-gray-200 rounded-lg">
+                    <i class="fas fa-cogs fa-3x text-blue-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Feature One</h3>
+                    <p class="text-gray-500 text-sm">Innovative tools and technology to help you achieve your goals faster.</p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg">
+                    <i class="fas fa-users fa-3x text-green-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Feature Two</h3>
+                    <p class="text-gray-500 text-sm">A supportive community and expert guidance every step of the way.</p>
+                </div>
+                <div class="p-6 border border-gray-200 rounded-lg">
+                    <i class="fas fa-chart-line fa-3x text-purple-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Feature Three</h3>
+                    <p class="text-gray-500 text-sm">Track your progress with insightful analytics and reports.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer-bg py-12 lg:py-16 relative z-0"> 
         <div class="container mx-auto px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-12 gap-8 items-start">
-                <div class="md:col-span-1 lg:col-span-5 flex flex-col items-start">
+            <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-8 items-start">
+                <div class="flex flex-col items-start text-left md:col-span-1 lg:col-start-2 lg:col-span-5">
                     <img src="tbh_logo.png" alt="tbh logo white" class="h-16 w-auto mb-6 filter brightness-0 invert">
                     <div class="flex space-x-3 mb-6">
                         <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-white transition-colors duration-300">
@@ -159,12 +186,10 @@
                             <i class="fab fa-twitter fa-lg p-3 bg-gray-700 rounded-md"></i>
                         </a>
                     </div>
-                    <p class="text-sm text-left">&copy; 2025 To Be Heard</p>
+                    <p class="text-sm">&copy; 2025 To Be Heard</p> 
                 </div>
 
-                <div class="hidden lg:block lg:col-span-1"></div>
-
-                <div class="md:col-span-1 lg:col-span-3 text-left">
+                <div class="text-left md:col-span-1 lg:col-span-3">
                     <h3 class="footer-heading text-lg mb-4">About us</h3>
                     <ul class="space-y-2">
                         <li><a href="#" class="footer-link text-sm">Company</a></li>
@@ -174,7 +199,7 @@
                     </ul>
                 </div>
 
-                <div class="md:col-span-1 lg:col-span-3 text-left">
+                <div class="text-left md:col-span-2 lg:col-span-3"> 
                     <h3 class="footer-heading text-lg mb-4">Legal</h3>
                     <ul class="space-y-2">
                         <li><a href="#" class="footer-link text-sm">Terms of service</a></li>
