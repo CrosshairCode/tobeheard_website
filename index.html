@@ -64,19 +64,10 @@
 
         /* Carousel specific styles */
         .testimonial-carousel-container {
-            scroll-behavior: smooth; 
             -webkit-overflow-scrolling: touch; 
         }
         .testimonial-card {
             flex: 0 0 auto; 
-        }
-        /* Hide scrollbar for clean look, but still scrollable */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
         }
     </style>
 </head>
@@ -167,9 +158,9 @@
             </p>
             
             <div class="relative">
-                <div id="testimonialCarousel" class="testimonial-carousel-container flex overflow-x-auto pb-4 hide-scrollbar">
+                <div id="testimonialCarousel" class="testimonial-carousel-container flex overflow-x-auto pb-4">
                     </div>
-                </div>
+            </div>
         </div>
     </section>
 
@@ -234,8 +225,6 @@
 
         // Testimonial Carousel Script
         const carousel = document.getElementById('testimonialCarousel');
-        // const prevButton = document.getElementById('prevButton'); // Button removed
-        // const nextButton = document.getElementById('nextButton'); // Button removed
 
         const testimonialsData = [
             { imgSrc: "https://placehold.co/80x80/E0F2FE/1F2937?text=Woman", alt: "User Jane S.", name: "Jane S.", stars: 5, review: "This app has been a game-changer for my mental well-being. The therapists are so understanding and provide practical advice. Highly recommend!" },
@@ -262,130 +251,42 @@
         
         function createTestimonialCard(testimonial) {
             const cardDiv = document.createElement('div');
-            // Adjusted card widths: w-10/12 (almost full for XS), sm:w-2/5 (2 cards), md:w-1/3 (3 cards), lg:w-1/4 (4 cards, but we aim for 3 visible)
-            // To show 3 centered on LG, the parent container of the carousel might need a max-width or we adjust scroll logic
-            // For now, making cards slimmer:
-            cardDiv.className = "testimonial-card w-11/12 sm:w-[45%] md:w-[31%] lg:w-[30%] p-2 flex-shrink-0"; // Slimmer cards with p-2
+            // Outer card padding remains p-2
+            cardDiv.className = "testimonial-card w-10/12 sm:w-[47%] md:w-[31.5%] lg:w-[31.5%] p-2 flex-shrink-0"; 
             
             let profileImageHTML = '';
             if (testimonial.isAnonymous) {
-                profileImageHTML = `<svg class="w-20 h-20 rounded-full mb-4 text-gray-400 bg-gray-200 p-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>`;
+                profileImageHTML = `<svg class="w-20 h-20 rounded-full mb-3 text-gray-300 bg-gray-100 p-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>`;
             } else {
-                profileImageHTML = `<img src="${testimonial.imgSrc}" alt="${testimonial.alt}" class="w-20 h-20 rounded-full mb-4 object-cover">`;
+                profileImageHTML = `<img src="${testimonial.imgSrc}" alt="${testimonial.alt}" class="w-20 h-20 rounded-full mb-3 object-cover shadow-sm">`;
             }
 
+            // Inner card padding: pt-5 (top), px-3 (left/right reduced), pb-3 (bottom reduced)
+            // Star rating bottom margin reduced to mb-2
+            // Name bottom margin reduced to mb-1
+            // min-h adjusted
             cardDiv.innerHTML = `
-                <div class="bg-gray-50 p-4 rounded-lg shadow-md h-full flex flex-col items-center min-h-[360px]"> ${profileImageHTML}
-                    <h3 class="text-lg font-semibold text-gray-700 mb-1">${testimonial.name}</h3> <div class="flex text-yellow-400 mb-3">
-                        ${createStarRating(testimonial.stars)}
-                    </div>
-                    <p class="text-gray-600 text-xs italic text-center leading-relaxed">${testimonial.review}</p> </div>
+                <div class="bg-white pt-5 px-1 pb-5 rounded-lg shadow-lg h-full flex flex-col items-center text-center min-h-[320px]"> 
+                    ${profileImageHTML}
+                    <h3 class="text-lg font-semibold text-gray-800 mb-1">${testimonial.name}</h3> 
+                    <div class="flex text-yellow-400 text-lg mb-7">${createStarRating(testimonial.stars)}</div> 
+                    <p class="text-gray-600 text-sm leading-relaxed max-w-[200px] mx-auto">${testimonial.review}</p> 
+                </div>
             `;
             return cardDiv;
         }
 
-        if (carousel) { // Removed button checks as they are gone
-            let cardWidth = 0;
-            let numOriginalCards = testimonialsData.length;
-            let isTransitioning = false;
-            let currentIndex = 0; // Start at the first "real" card in the logical sequence
-            let autoScrollInterval;
-            const SCROLL_INTERVAL_MS = 50; // 5 seconds
-
-            function calculateCardWidth() {
-                const firstCard = carousel.querySelector('.testimonial-card');
-                if (firstCard) {
-                    const style = window.getComputedStyle(firstCard);
-                    const marginLeft = parseInt(style.marginLeft, 10) || 0;
-                    const marginRight = parseInt(style.marginRight, 10) || 0;
-                    cardWidth = firstCard.offsetWidth + marginLeft + marginRight;
-                } else {
-                    cardWidth = carousel.offsetWidth / 3; // Fallback if no cards, assume 3 visible
-                    if (window.innerWidth < 768) cardWidth = carousel.offsetWidth * 0.9; // ~1 card on mobile
-                    else if (window.innerWidth < 1024) cardWidth = carousel.offsetWidth * 0.45; // ~2 cards on tablet
-                }
-            }
-
-            function populateAndCloneCards() {
+        if (carousel) { 
+            function populateCards() {
                 carousel.innerHTML = ''; 
-                
-                const originalCardElements = testimonialsData.map(createTestimonialCard);
-
-                // To ensure enough items for smooth infinite scroll, especially if numOriginalCards < 3
-                const itemsToDisplay = 3; // Number of items we want to see at once on large screens
-                const clonesNeeded = Math.max(itemsToDisplay, numOriginalCards);
-
-
-                // Prepend clones (last 'clonesNeeded' items from original set)
-                for (let i = 0; i < clonesNeeded; i++) {
-                    const originalIndex = (numOriginalCards - (clonesNeeded - i)) % numOriginalCards;
-                    const cardDataIndex = (originalIndex + numOriginalCards) % numOriginalCards; // Ensure positive index
-                    const clone = createTestimonialCard(testimonialsData[cardDataIndex]);
-                    carousel.insertBefore(clone, carousel.firstChild);
-                }
-                
-                originalCardElements.forEach(card => carousel.appendChild(card));
-                
-                // Append clones (first 'clonesNeeded' items from original set)
-                for (let i = 0; i < clonesNeeded; i++) {
-                    const clone = createTestimonialCard(testimonialsData[i % numOriginalCards]);
-                    carousel.appendChild(clone);
-                }
-                
-                calculateCardWidth(); 
-                currentIndex = clonesNeeded; // Start at the first "real" card
-                carousel.scrollTo({ left: currentIndex * cardWidth, behavior: 'instant' });
-            }
-            
-            function handleAutoScroll() {
-                if (isTransitioning || cardWidth === 0) return;
-                isTransitioning = true;
-
-                currentIndex++; // Always scroll left (visually, which means increasing scrollLeft)
-                
-                carousel.scrollTo({
-                    left: carousel.scrollLeft + cardWidth,
-                    behavior: 'smooth'
+                testimonialsData.forEach(testimonial => {
+                    carousel.appendChild(createTestimonialCard(testimonial));
                 });
-
-                carousel.addEventListener('scrollend', function handleScrollEnd() {
-                    carousel.removeEventListener('scrollend', handleScrollEnd);
-                    
-                    // After scrolling past the "original" set + first set of clones
-                    if (currentIndex >= numOriginalCards + (clonesNeeded)) { 
-                        currentIndex = clonesNeeded; // Reset to the start of the "original" set
-                        carousel.scrollTo({ left: currentIndex * cardWidth, behavior: 'instant' });
-                    }
-                    isTransitioning = false;
-                }, { once: true });
-
-                setTimeout(() => { // Fallback for scrollend
-                    if (isTransitioning) {
-                         if (currentIndex >= numOriginalCards + (clonesNeeded)) { 
-                            currentIndex = clonesNeeded; 
-                            carousel.scrollTo({ left: currentIndex * cardWidth, behavior: 'instant' });
-                        }
-                        isTransitioning = false;
-                    }
-                }, 600); 
-            }
-
-            function startAutoScroll() {
-                stopAutoScroll(); // Clear any existing interval
-                autoScrollInterval = setInterval(handleAutoScroll, SCROLL_INTERVAL_MS);
-            }
-
-            function stopAutoScroll() {
-                clearInterval(autoScrollInterval);
             }
             
             function initializeCarousel() {
-                populateAndCloneCards();
-                startAutoScroll();
+                populateCards();
             }
-
-            carousel.addEventListener('mouseenter', stopAutoScroll);
-            carousel.addEventListener('mouseleave', startAutoScroll);
 
             window.addEventListener('load', initializeCarousel);
             if (document.readyState === 'complete') { 
@@ -394,10 +295,9 @@
             
             let resizeTimeout;
             window.addEventListener('resize', () => {
-                stopAutoScroll();
                 clearTimeout(resizeTimeout);
                 resizeTimeout = setTimeout(() => {
-                    initializeCarousel(); // Re-initialize to recalculate widths and clones
+                    initializeCarousel(); 
                 }, 250);
             });
         }
