@@ -39,15 +39,18 @@
             flex-direction: column;
             overflow-x: hidden; /* Primary guard against horizontal scroll */
         }
-        .main-content-wrapper { 
+        .page-wrapper { 
+            width: 100%;
+            overflow-x: hidden; /* Secondary guard for all content */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .main-content-area { 
             flex-grow: 1;
-            width: 100%; 
-            overflow: hidden; /* Secondary guard for internal content */
+            /* overflow: hidden; */ /* Temporarily remove from here if it was causing issues with screenshot visibility */
         }
         .mobile-menu-bg { background-color: #a8d3e0; }
-
-        .testimonial-carousel-container { -webkit-overflow-scrolling: touch; }
-        .testimonial-card { flex: 0 0 auto; }
         
         .leadership-card-base { display: flex; flex-direction: column; align-items: center; }
         .leadership-image-area { 
@@ -95,166 +98,197 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); } 
         }
+
+        /* Testimonial Carousel specific styles */
+        .testimonial-carousel-viewport {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            padding: 1rem 0; 
+        }
+        .testimonial-carousel-track {
+            display: flex; /* This is key for horizontal layout */
+            /* flex-wrap: nowrap; /* Explicitly prevent wrapping */
+            position: relative;
+            transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .testimonial-card {
+            flex-shrink: 0; /* Prevent cards from shrinking */
+            box-sizing: border-box;
+            opacity: 0.7;
+            transform: scale(0.9);
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            margin: 0 0.5rem; 
+             /* Width will be set by JS, but provide a fallback for initial render */
+            width: calc(100% / 3 - 1rem); /* Default for 3 cards, adjust as needed */
+        }
+        .testimonial-card.is-center {
+            opacity: 1;
+            transform: scale(1.05); 
+            z-index: 10; 
+        }
+        /* Hide scrollbar for the track */
+        .testimonial-carousel-track::-webkit-scrollbar { display: none; }
+        .testimonial-carousel-track { -ms-overflow-style: none; scrollbar-width: none; }
+
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <div class="main-content-wrapper"> <main class="hero-bg"> 
-            <div class="container mx-auto px-4 pt-6 rounded-lg relative">
-                <nav class="relative flex items-center justify-between mb-12 md:mb-20">
-                    <div class="text-3xl font-bold z-20 ml-6"> 
-                        <img src="tbh_logo.png" alt="tbh logo" class="h-16 w-auto">
-                    </div>
-                    <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden md:flex space-x-8 z-20">
-                        <a href="#" class="hero-nav-link hover:text-gray-900">Mission</a>
-                        <a href="#" class="hero-nav-link hover:text-gray-900">Product</a>
-                        <a href="#" class="hero-nav-link hover:text-gray-900">Leadership</a>
-                    </div>
-                    <div class="relative z-30 flex items-center justify-end w-auto mr-2 sm:mr-4">
-                        <div class="md:hidden">
-                            <button id="hamburgerButton" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-blue-200">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+    <div class="page-wrapper"> 
+        <main class="main-content-area"> 
+            <div class="hero-bg"> 
+                <div class="container mx-auto px-4 pt-6 rounded-lg relative overflow-hidden"> <nav class="relative flex items-center justify-between mb-12 md:mb-20">
+                        <div class="text-3xl font-bold z-20 ml-6"> 
+                            <img src="tbh_logo.png" alt="tbh logo" class="h-16 w-auto">
+                        </div>
+                        <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden md:flex space-x-8 z-20">
+                            <a href="#" class="hero-nav-link hover:text-gray-900">Mission</a>
+                            <a href="#" class="hero-nav-link hover:text-gray-900">Product</a>
+                            <a href="#" class="hero-nav-link hover:text-gray-900">Leadership</a>
+                        </div>
+                        <div class="relative z-30 flex items-center justify-end w-auto mr-2 sm:mr-4">
+                            <div class="md:hidden">
+                                <button id="hamburgerButton" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-blue-200">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+                    <div id="mobileMenu" class="hidden md:hidden fixed inset-0 mobile-menu-bg p-6 z-50">
+                        <div class="flex justify-between items-center mb-8">
+                            <div class="text-3xl font-bold"> 
+                                 <img src="tbh_logo.png" alt="tbh logo" class="h-14 w-auto">
+                            </div>
+                            <button id="closeMobileMenu" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-blue-200">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             </button>
                         </div>
+                        <nav class="flex flex-col space-y-4">
+                            <a href="#" class="text-gray-700 hover:text-gray-900 text-lg py-2">Mission</a>
+                            <a href="#" class="text-gray-700 hover:text-gray-900 text-lg py-2">Product</a>
+                            <a href="#" class="text-gray-700 hover:text-gray-900 text-lg py-2">Leadership</a>
+                        </nav>
                     </div>
-                </nav>
-                <div id="mobileMenu" class="hidden md:hidden fixed inset-0 mobile-menu-bg p-6 z-50">
-                    <div class="flex justify-between items-center mb-8">
-                        <div class="text-3xl font-bold"> 
-                             <img src="tbh_logo.png" alt="tbh logo" class="h-14 w-auto">
+                    <div class="flex flex-col md:flex-row items-center md:items-start">
+                        <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10 md:pl-16 lg:md:pl-20 md:pt-12">
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight hero-heading-text">
+                                Let us in on what you've kept&nbsp;inside. </h1>
+                            <p class="text-lg hero-subtext mb-8">
+                                Connect with a Trusted Psychologist Today.
+                            </p>
+                            <div class="flex flex-row justify-center md:justify-start space-x-3 sm:space-x-4">
+                                <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center justify-center shadow-md">
+                                    <img src="app_store.png" alt="App Store Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=&fontsize=20';">
+                                    <div class="text-left">
+                                        <div class="text-xs">Available on the</div>
+                                        <div class="text-sm sm:text-lg font-semibold">App Store</div>
+                                    </div>
+                                </a>
+                                <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center justify-center shadow-md">
+                                    <img src="play_store.png" alt="Google Play Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=▶&fontsize=20';">
+                                    <div class="text-left">
+                                        <div class="text-xs">GET IT ON</div>
+                                        <div class="text-sm sm:text-lg font-semibold">Google Play</div>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                        <button id="closeMobileMenu" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-blue-200">
-                            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </button>
-                    </div>
-                    <nav class="flex flex-col space-y-4">
-                        <a href="#" class="text-gray-700 hover:text-gray-900 text-lg py-2">Mission</a>
-                        <a href="#" class="text-gray-700 hover:text-gray-900 text-lg py-2">Product</a>
-                        <a href="#" class="text-gray-700 hover:text-gray-900 text-lg py-2">Leadership</a>
-                    </nav>
-                </div>
-                <div class="flex flex-col md:flex-row items-center md:items-start">
-                    <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10 md:pl-16 lg:md:pl-20 md:pt-12">
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight hero-heading-text">
-                            Let us in on what you've kept&nbsp;inside. </h1>
-                        <p class="text-lg hero-subtext mb-8">
-                            Connect with a Trusted Psychologist Today.
-                        </p>
-                        <div class="flex flex-row justify-center md:justify-start space-x-3 sm:space-x-4">
-                            <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center justify-center shadow-md">
-                                <img src="app_store.png" alt="App Store Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=&fontsize=20';">
-                                <div class="text-left">
-                                    <div class="text-xs">Available on the</div>
-                                    <div class="text-sm sm:text-lg font-semibold">App Store</div>
-                                </div>
-                            </a>
-                            <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center justify-center shadow-md">
-                                <img src="play_store.png" alt="Google Play Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=▶&fontsize=20';">
-                                <div class="text-left">
-                                    <div class="text-xs">GET IT ON</div>
-                                    <div class="text-sm sm:text-lg font-semibold">Google Play</div>
-                                </div>
-                            </a>
+                        <div class="w-full md:w-1/2 flex justify-end items-end mt-10 md:mt-0 overflow-hidden"> 
+                            <img src="app_screenshot.png"
+                                 alt="Phone App Screenshot"
+                                 class="rounded-3xl
+                                        max-w-md md:max-w-lg lg:max-w-xl 
+                                        -mr-4 sm:-mr-6 md:-mr-8 lg:-mr-10 xl:-mr-12" onerror="this.onerror=null;this.src='https://placehold.co/320x650/FEE2E2/991B1B?text=Image+Not+Found';" 
+                                 style="z-index: 5;" >
                         </div>
-                    </div>
-                    <div class="w-full md:w-1/2 flex justify-end items-end mt-10 md:mt-0 overflow-hidden"> 
-                        <img src="app_screenshot.png"
-                             alt="Phone App Screenshot"
-                             class="rounded-3xl
-                                    max-w-md md:max-w-lg lg:max-w-xl 
-                                    -mr-8 sm:-mr-12 md:-mr-16 lg:-mr-20 xl:-mr-24" 
-                                    onerror="this.onerror=null;this.src='https://placehold.co/320x650/FEE2E2/991B1B?text=Image+Not+Found';" 
-                             style="z-index: 5;" >
                     </div>
                 </div>
             </div>
-        </main>
 
-        <section class="logo-carousel-container">
-            <div id="logoTrack" class="logo-carousel-track scroll-left">
+            <section class="logo-carousel-container">
+                <div id="logoTrack" class="logo-carousel-track scroll-left">
+                    </div>
+            </section>
+
+            <section class="bg-white py-16 md:py-24">
+                <div class="container mx-auto px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">About Us</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto leading-relaxed mb-4">
+                        Welcome to TBH (To Be Heard), your trusted partner in mental wellness. We believe that everyone deserves access to quality mental health support, anytime, anywhere. Our mission is to break down barriers to therapy and provide a safe, confidential, and compassionate space for individuals to connect with licensed psychologists and counselors.
+                    </p>
+                    <p class="text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                        Founded with the vision of making mental healthcare more accessible and destigmatized, TBH leverages technology to offer convenient online consultations, a wealth of resources, and a supportive community. We are committed to empowering you on your journey towards a healthier and happier mind.
+                    </p>
                 </div>
-        </section>
+            </section>
 
-        <section class="bg-white py-16 md:py-24">
-            <div class="container mx-auto px-6 lg:px-8 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">About Us</h2>
-                <p class="text-gray-600 max-w-3xl mx-auto leading-relaxed mb-4">
-                    Welcome to TBH (To Be Heard), your trusted partner in mental wellness. We believe that everyone deserves access to quality mental health support, anytime, anywhere. Our mission is to break down barriers to therapy and provide a safe, confidential, and compassionate space for individuals to connect with licensed psychologists and counselors.
-                </p>
-                <p class="text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    Founded with the vision of making mental healthcare more accessible and destigmatized, TBH leverages technology to offer convenient online consultations, a wealth of resources, and a supportive community. We are committed to empowering you on your journey towards a healthier and happier mind.
-                </p>
-            </div>
-        </section>
+            <section class="bg-white py-16 md:py-24 relative z-10">
+                <div class="container mx-auto px-6 lg:px-8">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-16 md:mb-20 text-left">Leadership</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-16 text-center"> 
+                        
+                        <div class="leadership-card-base">
+                            <div class="leadership-image-area">
+                                <img src="kayla.png" alt="Kayla" 
+                                     class="leadership-image"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Kayla';">
+                                <div class="leadership-blue-shape"></div>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mt-2">Puti Alvina Kayla Haryanto</h3>
+                            <p class="text-sm text-gray-600">Founder, Chief Executive Office</p>
+                        </div>
 
-        <section class="bg-white py-16 md:py-24 relative z-10">
-            <div class="container mx-auto px-6 lg:px-8">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-16 md:mb-20 text-left">Leadership</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-16 text-center"> 
+                        <div class="leadership-card-base">
+                            <div class="leadership-image-area">
+                                <img src="tiara_naya_kabita.png" alt="Tiara naya kabita" 
+                                     class="leadership-image"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Tiara+N.+K.';">
+                                <div class="leadership-blue-shape"></div>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mt-2">Tiara naya kabita</h3>
+                            <p class="text-sm text-gray-600">Founder, Chief Marketing Office</p>
+                        </div>
+
+                        <div class="leadership-card-base">
+                            <div class="leadership-image-area">
+                                 <img src="jonathan_sumana.png" alt="Jonathan Sumana" 
+                                     class="leadership-image"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Jonathan+S.';">
+                                <div class="leadership-blue-shape"></div>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mt-2">Jonathan Sumana</h3>
+                            <p class="text-sm text-gray-600">Chief Financial Office</p>
+                        </div>
+
+                        <div class="leadership-card-base">
+                             <div class="leadership-image-area">
+                                <img src="gavin_gunardi.png" alt="Gavin Gunardi" 
+                                     class="leadership-image"
+                                     onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Gavin+G.';">
+                                <div class="leadership-blue-shape"></div>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-800 mt-2">Gavin Gunardi</h3>
+                            <p class="text-sm text-gray-600">Chief Technical Office</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white relative z-0 shadow-lg pt-0 pb-16 md:pb-24"> 
+                <div class="container mx-auto px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-12">What Our Users Say</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-12">
+                        Hear from individuals who have found support and growth with us.
+                    </p>
                     
-                    <div class="leadership-card-base">
-                        <div class="leadership-image-area">
-                            <img src="kayla.png" alt="Kayla" 
-                                 class="leadership-image"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Kayla';">
-                            <div class="leadership-blue-shape"></div>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mt-2">Puti Alvina Kayla Haryanto</h3>
-                        <p class="text-sm text-gray-600">Founder, Chief Executive Office</p>
-                    </div>
-
-                    <div class="leadership-card-base">
-                        <div class="leadership-image-area">
-                            <img src="tiara_naya_kabita.png" alt="Tiara naya kabita" 
-                                 class="leadership-image"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Tiara+N.+K.';">
-                            <div class="leadership-blue-shape"></div>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mt-2">Tiara naya kabita</h3>
-                        <p class="text-sm text-gray-600">Founder, Chief Marketing Office</p>
-                    </div>
-
-                    <div class="leadership-card-base">
-                        <div class="leadership-image-area">
-                             <img src="jonathan_sumana.png" alt="Jonathan Sumana" 
-                                 class="leadership-image"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Jonathan+S.';">
-                            <div class="leadership-blue-shape"></div>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mt-2">Jonathan Sumana</h3>
-                        <p class="text-sm text-gray-600">Chief Financial Office</p>
-                    </div>
-
-                    <div class="leadership-card-base">
-                         <div class="leadership-image-area">
-                            <img src="gavin_gunardi.png" alt="Gavin Gunardi" 
-                                 class="leadership-image"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Gavin+G.';">
-                            <div class="leadership-blue-shape"></div>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mt-2">Gavin Gunardi</h3>
-                        <p class="text-sm text-gray-600">Chief Technical Office</p>
+                    <div class="testimonial-carousel-viewport"> 
+                        <div id="testimonialTrack" class="testimonial-carousel-track">
+                            </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section class="bg-white relative z-0 shadow-lg pt-0 pb-16 md:pb-24"> 
-            <div class="container mx-auto px-6 lg:px-8 text-center">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-12">What Our Users Say</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto mb-12">
-                    Hear from individuals who have found support and growth with us.
-                </p>
-                
-                <div class="testimonial-carousel-viewport"> 
-                    <div id="testimonialTrack" class="testimonial-carousel-track">
-                        </div>
-                </div>
-            </div>
-        </section>
-
-
-        <footer class="footer-bg py-12 lg:py-16 relative z-0"> 
+            </section>
+        </main> <footer class="footer-bg py-12 lg:py-16 relative z-0"> 
             <div class="container mx-auto px-6 lg:px-8">
                 <div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-8 items-start">
                     <div class="flex flex-col items-start text-left md:col-span-1 lg:col-start-2 lg:col-span-5">
@@ -296,8 +330,7 @@
                 </div>
             </div>
         </footer>
-    </div> 
-    <script>
+    </div> <script>
         // Mobile Menu Script
         const hamburgerButton = document.getElementById('hamburgerButton');
         const mobileMenu = document.getElementById('mobileMenu');
@@ -362,13 +395,17 @@
         }
 
         if (testimonialTrack) { 
-            let currentIndex = 0; 
+            let currentLogicalIndex = 0; 
             let autoSlideInterval;
             const numOriginalCards = testimonialsData.length;
             let cardWidthWithMargin = 0;
             let cardsInView = 3; 
+            let numClonesEachSide = 0; 
 
-            function setVisibleCardsCount() {
+            function setVisibleCardsCountAndWidths() {
+                const viewportWidth = testimonialTrack.parentElement.offsetWidth;
+                const cardMarginPx = 0.25 * 16 * 2; 
+
                 if (window.innerWidth < 768) { 
                     cardsInView = 1;
                 } else if (window.innerWidth < 1024) { 
@@ -376,97 +413,89 @@
                 } else { 
                     cardsInView = 3;
                 }
-            }
+                numClonesEachSide = cardsInView; // Clone enough to fill the view on each side
 
-            function calculateCardDimensions() {
-                const viewportWidth = testimonialTrack.parentElement.offsetWidth;
-                const cardMargin = 0.25 * 16 * 2; 
-                
                 if (cardsInView === 1) {
-                    cardWidthWithMargin = viewportWidth * 0.8; 
+                    cardWidthWithMargin = viewportWidth * 0.75; // Make single card take up 75% of viewport
                 } else {
-                    cardWidthWithMargin = (viewportWidth / cardsInView) - cardMargin ;
+                    cardWidthWithMargin = (viewportWidth / cardsInView) - (cardMarginPx * ((cardsInView -1) / cardsInView)) ;
                 }
-
-                const allCards = testimonialTrack.querySelectorAll('.testimonial-card');
-                allCards.forEach(card => {
-                    card.style.width = `${cardWidthWithMargin - cardMargin}px`; 
+                
+                const allDomCards = testimonialTrack.querySelectorAll('.testimonial-card');
+                allDomCards.forEach(card => {
+                    card.style.width = `${cardWidthWithMargin - cardMarginPx}px`; 
                 });
             }
             
-            function updateCarouselView() {
+            function updateCarouselView(isInitial = false, instant = false) {
                 if (!testimonialTrack || cardWidthWithMargin === 0) return;
-
-                const totalTrackWidth = testimonialTrack.scrollWidth;
-                const numTotalCardsInDom = testimonialTrack.children.length; 
-
+                
                 let offset = 0;
                 if (cardsInView === 1) {
                     offset = (testimonialTrack.parentElement.offsetWidth - cardWidthWithMargin) / 2;
                 } else if (cardsInView === 2) {
-                     offset = (testimonialTrack.parentElement.offsetWidth - (cardWidthWithMargin * 2)) / 2;
-                } else { 
-                    offset = (testimonialTrack.parentElement.offsetWidth - (cardWidthWithMargin * 3)) / 2;
+                     offset = (testimonialTrack.parentElement.offsetWidth - (cardWidthWithMargin * 2) + (0.25 * 16) ) / 2;
+                } else { // cardsInView === 3
+                    offset = (testimonialTrack.parentElement.offsetWidth - (cardWidthWithMargin * 3) + (0.25 * 16 * 2) ) / 2;
                 }
                 
-                const targetScrollLeft = (currentIndex * cardWidthWithMargin) - offset;
-                testimonialTrack.style.transform = `translateX(${-targetScrollLeft}px)`;
+                const targetTransform = -((numClonesEachSide + currentLogicalIndex) * cardWidthWithMargin) + offset;
+                
+                testimonialTrack.style.transition = instant ? 'none' : 'transform 0.7s cubic-bezier(0.65, 0, 0.35, 1)';
+                testimonialTrack.style.transform = `translateX(${targetTransform}px)`;
 
-
-                const allDomCards = testimonialTrack.querySelectorAll('.testimonial-card');
+                const allDomCards = Array.from(testimonialTrack.children);
                 allDomCards.forEach((card, domIndex) => {
                     card.classList.remove('is-center');
-                    let middleCardLogicalIndex = currentIndex;
+                    // Calculate which card is logically in the center of the *visible* set
+                    const firstVisibleCardDomIndex = numClonesEachSide + currentLogicalIndex;
+                    let centerCardDomIndex = firstVisibleCardDomIndex;
                     if (cardsInView === 3) {
-                        middleCardLogicalIndex = currentIndex + 1;
+                        centerCardDomIndex = firstVisibleCardDomIndex + 1;
+                    } else if (cardsInView === 2) {
+                        // For 2 cards, we might not magnify, or magnify both, or pick one.
+                        // Let's pick the first of the two for now if we want to magnify.
+                        // Or, remove magnification for 2-card view. For now, no magnification for 2 cards.
                     }
                     
-                    const middleCardDomIndex = numOriginalCards + middleCardLogicalIndex; 
-
-                    if (domIndex === middleCardDomIndex) {
+                    if (domIndex === centerCardDomIndex && (cardsInView === 1 || cardsInView === 3)) {
                         card.classList.add('is-center');
-                    } else if (cardsInView === 1 && domIndex === (numOriginalCards + currentIndex) ) {
-                         card.classList.add('is-center');
                     }
                 });
             }
 
             function populateAndClone() {
                 testimonialTrack.innerHTML = ''; 
+                setVisibleCardsCountAndWidths(); // Set cardsInView before cloning
+                
                 const originalCardElements = testimonialsData.map((data, i) => createTestimonialCard(data, i));
                 
-                for (let i = 0; i < numOriginalCards; i++) {
-                    testimonialTrack.appendChild(originalCardElements[numOriginalCards - 1 - i].cloneNode(true));
+                // Prepend clones
+                for (let i = 0; i < numClonesEachSide; i++) {
+                    const originalIndex = (numOriginalCards - (numClonesEachSide - i) + numOriginalCards) % numOriginalCards;
+                    testimonialTrack.appendChild(createTestimonialCard(testimonialsData[originalIndex], originalIndex).cloneNode(true));
                 }
+                // Append original items
                 originalCardElements.forEach(card => testimonialTrack.appendChild(card));
-                for (let i = 0; i < numOriginalCards; i++) {
-                    testimonialTrack.appendChild(originalCardElements[i].cloneNode(true));
+                // Append clones
+                for (let i = 0; i < numClonesEachSide; i++) {
+                    testimonialTrack.appendChild(createTestimonialCard(testimonialsData[i % numOriginalCards], i % numOriginalCards).cloneNode(true));
                 }
                 
-                setVisibleCardsCount();
-                calculateCardDimensions();
-                
-                currentIndex = 0; 
-                testimonialTrack.style.transition = 'none'; 
-                testimonialTrack.style.transform = `translateX(${- (numOriginalCards * cardWidthWithMargin) + ((testimonialTrack.parentElement.offsetWidth - cardWidthWithMargin) / 2)}px)`;
-                testimonialTrack.offsetHeight; 
-                testimonialTrack.style.transition = 'transform 0.7s cubic-bezier(0.65, 0, 0.35, 1)';
-                updateCarouselView(); 
+                calculateCardDimensions(); // Crucial to call after DOM is populated
+                currentLogicalIndex = 0; 
+                updateCarouselView(true, true); // Initial positioning, instant
             }
 
-
             function autoSlide() {
-                currentIndex++;
-                testimonialTrack.style.transition = 'transform 0.7s cubic-bezier(0.65, 0, 0.35, 1)'; 
+                currentLogicalIndex++;
                 updateCarouselView();
 
-                if (currentIndex >= numOriginalCards) {
+                if (currentLogicalIndex >= numOriginalCards) {
                     setTimeout(() => {
-                        testimonialTrack.style.transition = 'none';
-                        currentIndex = 0;
-                        updateCarouselView(); 
-                        testimonialTrack.offsetHeight; 
-                    }, 700); 
+                        currentLogicalIndex = 0;
+                        updateCarouselView(false, true); // Instant jump
+                    }, 700); // Should be same as or slightly more than CSS transition
                 }
             }
 
