@@ -78,19 +78,19 @@
             overflow: hidden;
             position: relative;
             width: 100%;
-            background-color: #0D0D0D; /* Dark background for logo carousel */
-            padding: 1rem 0; /* Reduced padding slightly */
+            background-color: #FFFFFF; /* Changed background to white */
+            padding: 2rem 0; /* Increased padding slightly for more vertical space */
+            border-top: 1px solid #E5E7EB; /* Optional: light border */
+            border-bottom: 1px solid #E5E7EB; /* Optional: light border */
         }
         .logo-carousel-track {
             display: flex;
             width: fit-content; 
-            animation-duration: 40s; /* Default duration */
+            animation-duration: 40s; 
             animation-timing-function: linear;
             animation-iteration-count: infinite;
-            /* animation-play-state: running !important; /* Ensures it doesn't pause on hover */
         }
-        /* Removed .logo-carousel-track:hover rule */
-
+        
         .logo-item {
             flex-shrink: 0;
             width: 150px; 
@@ -102,13 +102,17 @@
         .logo-item img {
             max-height: 40px; 
             max-width: 100%;
-            filter: grayscale(100%) brightness(300%); 
-            opacity: 0.7;
-            transition: opacity 0.3s ease, filter 0.3s ease;
+            /* filter: grayscale(100%) brightness(300%); Removed to show original/blue color */
+            /* opacity: 0.7; */ /* Removed to show full opacity */
+            /* If logos are not blue, you might need a CSS filter to approximate blue, e.g.: */
+            /* filter: sepia(100%) hue-rotate(180deg) saturate(500%) brightness(70%); */
+            /* This is an approximation and works best on grayscale/black logos */
+            transition: transform 0.3s ease; /* Added hover effect for logos */
         }
-        .logo-item img:hover { /* Keep individual logo hover effect if desired */
-            opacity: 1;
-            filter: grayscale(0%) brightness(100%);
+        .logo-item img:hover {
+            /* opacity: 1; */
+            /* filter: grayscale(0%) brightness(100%); */ /* Removed to keep blue on hover */
+            transform: scale(1.1); /* Example hover effect: slight zoom */
         }
 
         .scroll-left {
@@ -123,8 +127,8 @@
             100% { transform: translateX(-50%); } 
         }
         @keyframes scrollRightInfinite {
-            0% { transform: translateX(-50%); } /* Start from the end of the first set of duplicated items */
-            100% { transform: translateX(0); }   /* Scroll back to the beginning */
+            0% { transform: translateX(-50%); } 
+            100% { transform: translateX(0); }   
         }
     </style>
 </head>
@@ -204,7 +208,8 @@
     <section class="logo-carousel-container">
         <div id="logoTrackTop" class="logo-carousel-track scroll-left">
             </div>
-        <div id="logoTrackBottom" class="logo-carousel-track scroll-right mt-2"> </div>
+        <div id="logoTrackBottom" class="logo-carousel-track scroll-right mt-4 md:mt-6"> 
+            </div>
     </section>
 
     <section class="bg-white py-16 md:py-24">
@@ -449,19 +454,18 @@
         const newsLogos = [ 
             { src: "kominfo.png", alt: "Kominfo Logo" }, { src: "cnbc.png", alt: "CNBC Logo" },
             { src: "idntimes.png", alt: "IDN Times Logo" }, { src: "liputan6.png", alt: "Liputan6 Logo" },
-            { src: "linkedin.png", alt: "LinkedIn Logo" }, { src: "techinasia.png", alt: "Tech In Asia Logo" }, 
-            { src: "kumparan.png", alt: "Kumparan Logo" },
-            { src: "beritasatu.png", alt: "BeritaSatu Logo" }, { src: "detikcom.png", alt: "Detikcom Logo" },
+            { src: "idxchannel.png", alt: "IDX Channel Logo" }, { src: "linkedin.png", alt: "LinkedIn Logo" },
+            { src: "techinasia.png", alt: "Tech In Asia Logo" }, { src: "kumparan.png", alt: "Kumparan Logo" }, 
+            { src: "detikcom.png", alt: "Detikcom Logo" },
             { src: "kompas.png", alt: "Kompas Logo" }, { src: "dailysocial.png", alt: "DailySocial Logo" },
-            { src: "tribunnews.png", alt: "Tribunnews Logo" }, { src: "bisniscom.png", alt: "Bisnis.com Logo" },
-            { src: "okezone.png", alt: "Okezone Logo" }
+            { src: "tribunnews.png", alt: "Tribunnews Logo" }, { src: "okezone.png", alt: "Okezone Logo" }
         ];
 
         function populateLogoTrack(trackElement, logos, reverse = false) {
             if (!trackElement) return;
             trackElement.innerHTML = ''; 
-            let allLogos = [...logos, ...logos]; // Duplicate for infinite scroll
-            if (reverse) allLogos = allLogos.reverse(); // Reverse for right-scrolling track if needed, though CSS handles direction
+            let allLogos = [...logos, ...logos]; 
+            if (reverse) allLogos = allLogos.reverse(); 
 
             allLogos.forEach(logo => {
                 const div = document.createElement('div');
@@ -475,7 +479,6 @@
             });
         }
 
-        // Split logos for two tracks
         const midPoint = Math.ceil(newsLogos.length / 2);
         const topLogos = newsLogos.slice(0, midPoint);
         const bottomLogos = newsLogos.slice(midPoint);
