@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TBH Hero, Leadership, Testimonials & Footer</title>
+    <title>TBH Full Page</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -15,39 +15,23 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         .hero-bg {
-            background-color: #bfe0e9; /* Hero background color */
-            color: #1F2937; /* Default dark gray text for hero section for contrast */
+            background-color: #bfe0e9; 
+            color: #1F2937; 
         }
-        .hero-nav-link {
-            color: #374151; /* Medium gray for nav links */
-        }
-        .hero-nav-link:hover {
-            color: #111827; /* Darker gray on hover */
-        }
-        .hero-subtext {
-            color: #4B5563; /* Slightly lighter medium gray for paragraph */
-        }
-        .hero-heading-text {
-            color: #111827; /* Darkest gray/black for main heading */
-        }
+        .hero-nav-link { color: #374151; }
+        .hero-nav-link:hover { color: #111827; }
+        .hero-subtext { color: #4B5563; }
+        .hero-heading-text { color: #111827; }
 
         .footer-bg {
-            background-color: #111769; /* Footer background color */
+            background-color: #111769; 
             color: #A0A0A0; 
         }
-        .footer-link {
-            color: #A0A0A0; 
-        }
-        .footer-link:hover {
-            color: #FFFFFF; 
-        }
-        .footer-heading {
-            color: #FFFFFF; 
-            font-weight: 600; 
-        }
-        html {
-            height: 100%;
-        }
+        .footer-link { color: #A0A0A0; }
+        .footer-link:hover { color: #FFFFFF; }
+        .footer-heading { color: #FFFFFF; font-weight: 600; }
+
+        html { height: 100%; }
         body {
             min-height: 100%;
             margin: 0;
@@ -55,73 +39,92 @@
             flex-direction: column;
             overflow-x: hidden;
         }
-        .main-content-wrapper { 
-            flex-grow: 1;
-        }
-        /* Mobile menu background - ensure contrast with light hero */
-        .mobile-menu-bg {
-            background-color: #a8d3e0; 
-        }
+        .main-content-wrapper { flex-grow: 1; }
+        .mobile-menu-bg { background-color: #a8d3e0; }
 
-        /* Carousel specific styles */
-        .testimonial-carousel-container {
-            -webkit-overflow-scrolling: touch; 
-        }
-        .testimonial-card {
-            flex: 0 0 auto; 
-        }
+        .testimonial-carousel-container { -webkit-overflow-scrolling: touch; }
+        .testimonial-card { flex: 0 0 auto; }
         
-        /* Leadership card specific style */
-        .leadership-card-base { 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        .leadership-card-base { display: flex; flex-direction: column; align-items: center; }
         .leadership-image-area { 
-            width: 14rem; /* w-56 - Increased from 12rem to make blue shape wider */
-            height: 16rem; /* h-64, approx 3:4 aspect ratio */
+            width: 12rem; /* w-48 */
+            height: 16rem; /* h-64 */
             position: relative; 
-            margin-bottom: 1rem; /* mb-4 */
+            margin-bottom: 1rem; 
             margin-top: 1.5rem; 
-            display: flex; /* Added to center the image child */
-            justify-content: center; /* Center image horizontally */
-            align-items: center; /* Center image vertically if its height is less */
         }
         .leadership-image { 
-            width: 12rem; /* w-48 - Explicit width for the image itself, narrower than its container */
-            height: 100%; /* Image takes full height of its area */
-            object-fit: cover; 
-            border-radius: 0.75rem; /* rounded-xl */
-            position: relative; 
-            z-index: 10; 
+            width: 100%; height: 100%; object-fit: cover; 
+            border-radius: 0.75rem; position: relative; z-index: 10; 
         }
         .leadership-blue-shape { 
-            position: absolute;
-            bottom: 0;
-            left: 0; /* Will span the full width of the 14rem leadership-image-area */
-            right: 0;/* Will span the full width of the 14rem leadership-image-area */
-            height: 65%; 
-            background-color: #111769; 
-            border-radius: 1.5rem; /* rounded-3xl */
-            z-index: 5; 
+            position: absolute; bottom: 0; left: 0; right: 0;
+            height: 65%; background-color: #111769; 
+            border-radius: 1.5rem; z-index: 5; 
         }
         .leadership-main-icon-float { 
-            position: absolute;
-            background-color: #FFFFFF; 
-            border-radius: 50%;
-            padding: 0.75rem; /* p-3 */
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            z-index: 20; 
+            position: absolute; background-color: #FFFFFF; 
+            border-radius: 50%; padding: 0.75rem; 
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); z-index: 20; 
         }
         .leadership-surrounding-icon-float { 
-            position: absolute;
-            background-color: #FFFFFF; 
-            border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
-            z-index: 15; 
-            display: flex; 
+            position: absolute; background-color: #FFFFFF; 
+            border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+            z-index: 15; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* News Outlet Logo Scroll */
+        .logo-carousel-container {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            background-color: #0D0D0D; /* Dark background for logo carousel */
+            padding: 1rem 0; /* Reduced padding slightly */
+        }
+        .logo-carousel-track {
+            display: flex;
+            width: fit-content; 
+            animation-duration: 40s; /* Default duration */
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+            /* animation-play-state: running !important; /* Ensures it doesn't pause on hover */
+        }
+        /* Removed .logo-carousel-track:hover rule */
+
+        .logo-item {
+            flex-shrink: 0;
+            width: 150px; 
+            margin: 0 25px; 
+            display: flex;
             align-items: center;
             justify-content: center;
+        }
+        .logo-item img {
+            max-height: 40px; 
+            max-width: 100%;
+            filter: grayscale(100%) brightness(300%); 
+            opacity: 0.7;
+            transition: opacity 0.3s ease, filter 0.3s ease;
+        }
+        .logo-item img:hover { /* Keep individual logo hover effect if desired */
+            opacity: 1;
+            filter: grayscale(0%) brightness(100%);
+        }
+
+        .scroll-left {
+            animation-name: scrollLeftInfinite;
+        }
+        .scroll-right {
+            animation-name: scrollRightInfinite;
+        }
+
+        @keyframes scrollLeftInfinite {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+        @keyframes scrollRightInfinite {
+            0% { transform: translateX(-50%); } /* Start from the end of the first set of duplicated items */
+            100% { transform: translateX(0); }   /* Scroll back to the beginning */
         }
     </style>
 </head>
@@ -198,10 +201,28 @@
         </div>
     </main>
 
+    <section class="logo-carousel-container">
+        <div id="logoTrackTop" class="logo-carousel-track scroll-left">
+            </div>
+        <div id="logoTrackBottom" class="logo-carousel-track scroll-right mt-2"> </div>
+    </section>
+
+    <section class="bg-white py-16 md:py-24">
+        <div class="container mx-auto px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">About Us</h2>
+            <p class="text-gray-600 max-w-3xl mx-auto leading-relaxed mb-4">
+                Welcome to TBH (To Be Heard), your trusted partner in mental wellness. We believe that everyone deserves access to quality mental health support, anytime, anywhere. Our mission is to break down barriers to therapy and provide a safe, confidential, and compassionate space for individuals to connect with licensed psychologists and counselors.
+            </p>
+            <p class="text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                Founded with the vision of making mental healthcare more accessible and destigmatized, TBH leverages technology to offer convenient online consultations, a wealth of resources, and a supportive community. We are committed to empowering you on your journey towards a healthier and happier mind.
+            </p>
+        </div>
+    </section>
+
     <section class="bg-white py-16 md:py-24 relative z-10">
         <div class="container mx-auto px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-16 md:mb-20 text-left">Leadership</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16 text-center"> 
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-16 text-center"> 
                 
                 <div class="leadership-card-base">
                     <div class="leadership-image-area">
@@ -348,7 +369,7 @@
         }
 
         // Testimonial Carousel Script
-        const carousel = document.getElementById('testimonialCarousel');
+        const testimonial_carousel = document.getElementById('testimonialCarousel'); 
 
         const testimonialsData = [
             { imgSrc: "https://placehold.co/80x80/E0F2FE/1F2937?text=Woman", alt: "User Jane S.", name: "Jane S.", stars: 5, review: "This app has been a game-changer for my mental well-being. The therapists are so understanding and provide practical advice. Highly recommend!" },
@@ -395,31 +416,73 @@
             return cardDiv;
         }
 
-        if (carousel) { 
-            function populateCards() {
-                carousel.innerHTML = ''; 
+        if (testimonial_carousel) { 
+            function populateTestimonialCards() {
+                testimonial_carousel.innerHTML = ''; 
                 testimonialsData.forEach(testimonial => {
-                    carousel.appendChild(createTestimonialCard(testimonial));
+                    testimonial_carousel.appendChild(createTestimonialCard(testimonial));
                 });
             }
             
-            function initializeCarousel() {
-                populateCards();
+            function initializeTestimonialCarousel() {
+                populateTestimonialCards();
             }
 
-            window.addEventListener('load', initializeCarousel);
+            window.addEventListener('load', initializeTestimonialCarousel);
             if (document.readyState === 'complete') { 
-                initializeCarousel();
+                initializeTestimonialCarousel();
             }
             
-            let resizeTimeout;
+            let resizeTimeoutTestimonial;
             window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    initializeCarousel(); 
+                clearTimeout(resizeTimeoutTestimonial);
+                resizeTimeoutTestimonial = setTimeout(() => {
+                    initializeTestimonialCarousel(); 
                 }, 250);
             });
         }
+
+        // News Outlet Logo Carousel Script
+        const logoTrackTop = document.getElementById('logoTrackTop');
+        const logoTrackBottom = document.getElementById('logoTrackBottom');
+
+        const newsLogos = [ 
+            { src: "kominfo.png", alt: "Kominfo Logo" }, { src: "cnbc.png", alt: "CNBC Logo" },
+            { src: "idntimes.png", alt: "IDN Times Logo" }, { src: "liputan6.png", alt: "Liputan6 Logo" },
+            { src: "linkedin.png", alt: "LinkedIn Logo" }, { src: "techinasia.png", alt: "Tech In Asia Logo" }, 
+            { src: "kumparan.png", alt: "Kumparan Logo" },
+            { src: "beritasatu.png", alt: "BeritaSatu Logo" }, { src: "detikcom.png", alt: "Detikcom Logo" },
+            { src: "kompas.png", alt: "Kompas Logo" }, { src: "dailysocial.png", alt: "DailySocial Logo" },
+            { src: "tribunnews.png", alt: "Tribunnews Logo" }, { src: "bisniscom.png", alt: "Bisnis.com Logo" },
+            { src: "okezone.png", alt: "Okezone Logo" }
+        ];
+
+        function populateLogoTrack(trackElement, logos, reverse = false) {
+            if (!trackElement) return;
+            trackElement.innerHTML = ''; 
+            let allLogos = [...logos, ...logos]; // Duplicate for infinite scroll
+            if (reverse) allLogos = allLogos.reverse(); // Reverse for right-scrolling track if needed, though CSS handles direction
+
+            allLogos.forEach(logo => {
+                const div = document.createElement('div');
+                div.className = 'logo-item';
+                const img = document.createElement('img');
+                img.src = logo.src; 
+                img.alt = logo.alt;
+                img.onerror = function() { this.src = `https://placehold.co/150x40/333333/FFFFFF?text=${logo.alt.replace(/\s/g, '+').replace(/\./g, '')}`; };
+                div.appendChild(img);
+                trackElement.appendChild(div);
+            });
+        }
+
+        // Split logos for two tracks
+        const midPoint = Math.ceil(newsLogos.length / 2);
+        const topLogos = newsLogos.slice(0, midPoint);
+        const bottomLogos = newsLogos.slice(midPoint);
+
+        populateLogoTrack(logoTrackTop, topLogos);
+        populateLogoTrack(logoTrackBottom, bottomLogos);
+        
     </script>
 
 </body>
