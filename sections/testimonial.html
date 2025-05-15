@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonial and Footer Section</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom font - Inter */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Fallback for Inter font if not loaded by Tailwind */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        html { height: 100%; }
+        body {
+            min-height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+        .page-wrapper {
+            width: 100%;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .main-content-area {
+            flex-grow: 1;
+        }
+
+        /* Testimonial Carousel specific styles */
+        .testimonial-carousel-viewport {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            padding: 1rem 0;
+        }
+        .testimonial-carousel-track {
+            display: flex;
+            position: relative;
+            transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .testimonial-card {
+            flex-shrink: 0;
+            box-sizing: border-box;
+            opacity: 0.7;
+            transform: scale(0.9);
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            margin: 0 0.5rem;
+            width: calc(100% / 3 - 1rem); /* Default for 3 cards, adjust as needed */
+        }
+        .testimonial-card.is-center {
+            opacity: 1;
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        .testimonial-carousel-track::-webkit-scrollbar { display: none; }
+        .testimonial-carousel-track { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Styles specific to the footer */
+        .footer-bg {
+            background-color: #111769;
+            color: #A0A0A0;
+        }
+        .footer-link { color: #A0A0A0; }
+        .footer-link:hover { color: #FFFFFF; }
+        .footer-heading { color: #FFFFFF; font-weight: 600; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <div class="page-wrapper">
+        <main class="main-content-area">
+            <section class="bg-white relative z-0 shadow-lg pt-0 pb-16 md:pb-24">
+            
+                <div class="container mx-auto px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-12">What Our Users Say</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto mb-12">
+                        Hear from individuals who have found support and growth with us.
+                    </p>
+
+                    <div class="testimonial-carousel-viewport">
+                        <div id="testimonialTrack" class="testimonial-carousel-track">
+                            </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+    </div>
+    <script>
+        // Testimonial Carousel Script
+        const testimonialTrack = document.getElementById('testimonialTrack');
+
+        const testimonialsData = [
+            { imgSrc: "https://placehold.co/80x80/E0F2FE/1F2937?text=Woman", alt: "User Jane S.", name: "Jane S.", stars: 5, review: "This app has been a game-changer for my mental well-being. The therapists are so understanding and provide practical advice. Highly recommend!" },
+            { isAnonymous: true, name: "Anonymous", stars: 4, review: "I was hesitant at first, but finding a safe space to talk has made a huge difference. The anonymity option was really important for me." },
+            { imgSrc: "https://placehold.co/80x80/D1FAE5/065F46?text=Man", alt: "User Mark A.", name: "Mark A.", stars: 4.5, review: "The variety of resources and the quality of the consultations exceeded my expectations. It's easy to use and truly helpful." },
+            { imgSrc: "https://placehold.co/80x80/FEF3C7/92400E?text=Woman2", alt: "User Lisa P.", name: "Lisa P.", stars: 5, review: "Connecting with my psychologist through this app felt just as personal and effective as in-person sessions. So convenient!" },
+            { imgSrc: "https://placehold.co/80x80/E0E7FF/1E3A8A?text=UserX", alt: "User Alex B.", name: "Alex B.", stars: 4, review: "Great interface and very responsive support team. Made getting help much less daunting." },
+            { isAnonymous: true, name: "Anonymous", stars: 5, review: "Finally, an app that truly prioritizes user privacy while offering top-notch mental health support. Thank you!" }
+        ];
+
+        function createStarRating(rating) {
+            let starsHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    starsHTML += '<i class="fas fa-star"></i>';
+                } else if (i - 0.5 === rating) {
+                    starsHTML += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    starsHTML += '<i class="far fa-star"></i>';
+                }
+            }
+            return starsHTML;
+        }
+
+        function createTestimonialCard(testimonial, originalIndex) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = "testimonial-card";
+            cardDiv.dataset.originalIndex = originalIndex;
+
+            let profileImageHTML = '';
+            if (testimonial.isAnonymous) {
+                profileImageHTML = `<svg class="w-20 h-20 rounded-full mb-3 text-gray-300 bg-gray-100 p-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>`;
+            } else {
+                profileImageHTML = `<img src="${testimonial.imgSrc}" alt="${testimonial.alt}" class="w-20 h-20 rounded-full mb-3 object-cover shadow-sm">`;
+            }
+
+            cardDiv.innerHTML = `
+                <div class="bg-white pt-5 px-1 pb-3 rounded-lg shadow-lg h-full flex flex-col items-center text-center min-h-[320px]">
+                    ${profileImageHTML}
+                    <h3 class="text-lg font-semibold text-gray-800 mb-1">${testimonial.name}</h3>
+                    <div class="flex text-yellow-400 text-lg mb-1">${createStarRating(testimonial.stars)}</div>
+                    <p class="text-gray-600 text-sm leading-relaxed max-w-[170px] mx-auto">${testimonial.review}</p>
+                </div>
+            `;
+            return cardDiv;
+        }
+
+        if (testimonialTrack) {
+            let currentLogicalIndex = 0;
+            let autoSlideInterval;
+            const numOriginalCards = testimonialsData.length;
+            let cardWidthWithMargin = 0;
+            let cardsInView = 3;
+            let numClonesEachSide = 0;
+
+            function setVisibleCardsCountAndWidths() {
+                const viewportWidth = testimonialTrack.parentElement.offsetWidth;
+                const cardMarginRem = 0.5; // margin: 0 0.5rem; -> 0.5rem on each side for a total of 1rem between cards
+                const cardMarginPx = cardMarginRem * 16 * 2; // Total margin pixels taken by spaces between cards
+
+                if (window.innerWidth < 768) { // Tailwind 'md' breakpoint
+                    cardsInView = 1;
+                } else if (window.innerWidth < 1024) { // Tailwind 'lg' breakpoint
+                    cardsInView = 2;
+                } else {
+                    cardsInView = 3;
+                }
+                numClonesEachSide = Math.max(cardsInView, 3); // Ensure enough clones for smooth infinite scroll
+
+                let baseCardWidth;
+                if (cardsInView === 1) {
+                    baseCardWidth = viewportWidth * 0.75; // Single card takes 75% of viewport
+                } else {
+                     // Total space for margins = (cardsInView - 1) * single_margin_gap (0.5rem on each side = 1rem gap)
+                    const totalMarginSpace = (cardsInView -1) * (cardMarginRem * 16) ;
+                    baseCardWidth = (viewportWidth - totalMarginSpace) / cardsInView;
+                }
+                 cardWidthWithMargin = baseCardWidth; // Storing this for translation calculation. The actual style.width will be baseCardWidth
+
+                const allDomCards = testimonialTrack.querySelectorAll('.testimonial-card');
+                allDomCards.forEach(card => {
+                    card.style.width = `${baseCardWidth}px`;
+                });
+            }
+
+            function calculateCardDimensions() {
+                const firstCard = testimonialTrack.querySelector('.testimonial-card');
+                if (firstCard) {
+                    const style = window.getComputedStyle(firstCard);
+                    const marginLeft = parseFloat(style.marginLeft); // e.g., 8px for 0.5rem
+                    const marginRight = parseFloat(style.marginRight); // e.g., 8px for 0.5rem
+                    // cardWidthWithMargin here refers to the visual block the card occupies including its L/R margins for translation purposes
+                    cardWidthWithMargin = firstCard.offsetWidth + marginLeft + marginRight;
+                }
+            }
+
+
+            function updateCarouselView(isInitial = false, instant = false) {
+                if (!testimonialTrack || cardWidthWithMargin === 0) {
+                     console.warn("Carousel update skipped: track or cardWidthWithMargin not ready.");
+                    return;
+                }
+                let offset = 0;
+                const viewportActualWidth = testimonialTrack.parentElement.offsetWidth;
+
+                // Calculate offset to center the group of cards
+                const totalWidthOfVisibleCards = (cardsInView * cardWidthWithMargin) - (0.5 * 16 * 2 * (cardsInView > 0 ? 1:0) ); // Subtract one full margin width if multiple cards
+                if(cardsInView === 1) {
+                     totalWidthOfVisibleCards = cardWidthWithMargin - (0.5*16*2); // for a single card, its width without external margins
+                } else {
+                    // For multiple cards, the track width for N cards is N * card_width + (N-1) * margin_between_cards
+                    // Or N * (card_width_including_one_side_margin) - one_side_margin if cardWidthWithMargin includes margin
+                    // If cardWidthWithMargin is card.offsetWidth + marginLeft + marginRight:
+                    // The total width of 'cardsInView' cards is (cardsInView * card.offsetWidth) + (cardsInView * (marginLeft+marginRight))
+                    // This interpretation of cardWidthWithMargin needs to be consistent.
+                    // Let's assume cardWidthWithMargin = card.offsetWidth + total L/R margin (1rem)
+                    // Effective width of a card slot is card.offsetWidth + margin-left + margin-right.
+                }
+
+
+                offset = (viewportActualWidth - ((cardsInView * (cardWidthWithMargin - (0.5 * 16 *2)))) + ( (cardsInView -1) * (0.5*16*2)) ) / 2;
+                 if (cardsInView === 1) {
+                    offset = (viewportActualWidth - (cardWidthWithMargin - (0.5*16*2)) ) / 2;
+                } else if (cardsInView === 2) {
+                     // Centering for 2 cards: viewport/2 - one_card_width_with_half_margin
+                    offset = (viewportActualWidth / 2) - (cardWidthWithMargin - (0.5 * 16));
+                } else if (cardsInView === 3) {
+                    // Centering for 3 cards: (viewport - (3*card_actual_width + 2*margin_gap)) / 2
+                    // or if cardWidthWithMargin = actual_width + 2*side_margin
+                    // target is to align the left of the first clone group to the calculated starting position
+                    const firstCardEffectiveLeftMargin = 0.5 * 16; // Assuming margin: 0 0.5rem
+                    offset = firstCardEffectiveLeftMargin; // This simplistic offset is often used when clones handle overflow
+                                                        // More precise centering:
+                    let totalTrackWidthForVisibleSet = (cardsInView * (cardWidthWithMargin - (0.5*16*2))) + ((cardsInView -1) * (0.5*16*2));
+                    offset = (viewportActualWidth - totalTrackWidthForVisibleSet) / 2;
+
+                }
+
+
+                const targetTransform = -((numClonesEachSide + currentLogicalIndex) * cardWidthWithMargin) + offset;
+
+                testimonialTrack.style.transition = instant ? 'none' : 'transform 0.7s cubic-bezier(0.65, 0, 0.35, 1)';
+                testimonialTrack.style.transform = `translateX(${targetTransform}px)`;
+
+                const allDomCards = Array.from(testimonialTrack.children);
+                allDomCards.forEach((card, domIndex) => {
+                    card.classList.remove('is-center');
+                    const firstVisibleCardDomIndex = numClonesEachSide + currentLogicalIndex;
+                    let centerCardDomIndex = firstVisibleCardDomIndex;
+
+                    if (cardsInView === 3) {
+                        centerCardDomIndex = firstVisibleCardDomIndex + 1;
+                    } else if (cardsInView === 1) {
+                        centerCardDomIndex = firstVisibleCardDomIndex;
+                    }
+                    // For cardsInView === 2, no specific card is 'is-center' or both could be.
+                    // The current logic only applies 'is-center' for 1 or 3 cards in view.
+
+                    if (domIndex === centerCardDomIndex && (cardsInView === 1 || cardsInView === 3)) {
+                        card.classList.add('is-center');
+                    }
+                });
+            }
+
+            function populateAndClone() {
+                testimonialTrack.innerHTML = '';
+                setVisibleCardsCountAndWidths(); // Set cardsInView and initial widths before cloning
+
+                const originalCardElements = testimonialsData.map((data, i) => createTestimonialCard(data, i));
+
+                // Prepend clones
+                for (let i = 0; i < numClonesEachSide; i++) {
+                    const originalIndex = (numOriginalCards - (numClonesEachSide - i) + numOriginalCards) % numOriginalCards;
+                    testimonialTrack.appendChild(createTestimonialCard(testimonialsData[originalIndex], originalIndex).cloneNode(true));
+                }
+                // Append original items
+                originalCardElements.forEach(card => testimonialTrack.appendChild(card));
+                // Append clones
+                for (let i = 0; i < numClonesEachSide; i++) {
+                    testimonialTrack.appendChild(createTestimonialCard(testimonialsData[i % numOriginalCards], i % numOriginalCards).cloneNode(true));
+                }
+                // After populating, ensure card widths are correctly applied based on their content and our rules
+                const allDomCards = testimonialTrack.querySelectorAll('.testimonial-card');
+                 let cardActualWidth = (testimonialTrack.parentElement.offsetWidth / cardsInView) - (0.5 * 16 * 2 * ((cardsInView - 1) / cardsInView) );
+                 if (cardsInView === 1) cardActualWidth = testimonialTrack.parentElement.offsetWidth * 0.75;
+
+                allDomCards.forEach(card => {
+                    card.style.width = `${cardActualWidth}px`;
+                });
+
+
+                calculateCardDimensions(); // Call after DOM is populated and base widths are set
+                currentLogicalIndex = 0;
+                updateCarouselView(true, true); // Initial positioning, instant
+            }
+
+            function autoSlide() {
+                currentLogicalIndex++;
+                updateCarouselView();
+
+                if (currentLogicalIndex >= numOriginalCards) {
+                    setTimeout(() => {
+                        if (!testimonialTrack.isConnected) return; // Check if track is still in DOM
+                        testimonialTrack.style.transition = 'none'; // Disable transition for jump
+                        currentLogicalIndex = 0;
+                        updateCarouselView(false, true); // Instant jump
+                        // Re-enable transition after a short delay
+                        setTimeout(() => {
+                             if (!testimonialTrack.isConnected) return;
+                            testimonialTrack.style.transition = 'transform 0.7s cubic-bezier(0.65, 0, 0.35, 1)';
+                        }, 50);
+                    }, 700); // Should be same as or slightly more than CSS transition time
+                }
+            }
+
+            function startAutoSlide() {
+                stopAutoSlide();
+                autoSlideInterval = setInterval(autoSlide, 3000);
+            }
+
+            function stopAutoSlide() {
+                clearInterval(autoSlideInterval);
+            }
+
+            function initializeTestimonialCarousel() {
+                 if (!testimonialTrack) return;
+                populateAndClone();
+                startAutoSlide();
+
+                // Add event listeners for mouse enter/leave to pause/resume auto-slide
+                testimonialTrack.parentElement.addEventListener('mouseenter', stopAutoSlide);
+                testimonialTrack.parentElement.addEventListener('mouseleave', startAutoSlide);
+            }
+
+            if (document.readyState === 'loading') {
+                window.addEventListener('DOMContentLoaded', initializeTestimonialCarousel);
+            } else {
+                initializeTestimonialCarousel();
+            }
+
+            let resizeTimeoutTestimonial;
+            window.addEventListener('resize', () => {
+                if (!testimonialTrack) return;
+                stopAutoSlide(); // Stop sliding during resize
+                clearTimeout(resizeTimeoutTestimonial);
+                resizeTimeoutTestimonial = setTimeout(() => {
+                    initializeTestimonialCarousel(); // Re-initialize to recalculate sizes and restart
+                }, 250);
+            });
+        }
+    </script>
+</body>
+</html>

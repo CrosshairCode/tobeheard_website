@@ -1,0 +1,76 @@
+<style>
+    /* Styles specific to leadership cards */
+    .leadership-card-base { display: flex; flex-direction: column; align-items: center; }
+    .leadership-image-area {
+        width: 14rem;
+        height: 16rem;
+        position: relative;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .leadership-image {
+        width: 12rem;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 0.75rem; position: relative; z-index: 10;
+    }
+    .leadership-blue-shape {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        height: 65%; background-color: #111769;
+        border-radius: 1.5rem; z-index: 5;
+    }
+</style>
+
+<section class="bg-white py-16 md:py-24 relative z-10">
+    <div class="container mx-auto px-6 lg:px-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-16 md:mb-20 text-left">Leadership</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-16 text-center">
+
+            <div class="leadership-card-base">
+                <div class="leadership-image-area">
+                    <img src="image/kayla.png" alt="Kayla"
+                         class="leadership-image"
+                         onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Kayla';">
+                    <div class="leadership-blue-shape"></div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mt-2">Puti Alvina Kayla Haryanto</h3>
+                <p class="text-sm text-gray-600">Founder, Chief Executive Office</p>
+            </div>
+
+            <div class="leadership-card-base">
+                <div class="leadership-image-area">
+                    <img src="image/tiara_naya_kabita.png" alt="Tiara naya kabita"
+                         class="leadership-image"
+                         onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Tiara+N.+K.';">
+                    <div class="leadership-blue-shape"></div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mt-2">Tiara naya kabita</h3>
+                <p class="text-sm text-gray-600">Founder, Chief Marketing Office</p>
+            </div>
+
+            <div class="leadership-card-base">
+                <div class="leadership-image-area">
+                    <img src="image/jonathan_sumana.png" alt="Jonathan Sumana"
+                         class="leadership-image"
+                         onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Jonathan+S.';">
+                    <div class="leadership-blue-shape"></div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mt-2">Jonathan Sumana</h3>
+                <p class="text-sm text-gray-600">Chief Financial Office</p>
+            </div>
+
+            <div class="leadership-card-base">
+                <div class="leadership-image-area">
+                    <img src="image/gavin_gunardi.png" alt="Gavin Gunardi"
+                         class="leadership-image"
+                         onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Gavin+G.';">
+                    <div class="leadership-blue-shape"></div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mt-2">Gavin Gunardi</h3>
+                <p class="text-sm text-gray-600">Chief Technical Office</p>
+            </div>
+        </div>
+    </div>
+</section>

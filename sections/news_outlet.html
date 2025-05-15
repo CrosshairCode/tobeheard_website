@@ -1,0 +1,63 @@
+<style>
+    /* News Outlet Logo Scroll */
+    .logo-carousel-container {
+        overflow: hidden; position: relative; width: 100%;
+        background-color: #FFFFFF; padding: 2rem 0;
+        border-top: 1px solid #E5E7EB; border-bottom: 1px solid #E5E7EB;
+    }
+    .logo-carousel-track {
+        display: flex; width: fit-content;
+        animation: scrollLeftInfiniteNews 30s linear infinite; /* Renamed animation to avoid conflicts if loaded multiple times, though not strictly necessary with current loader */
+    }
+    .logo-item {
+        flex-shrink: 0; width: 150px; margin: 0 25px;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .logo-item img {
+        max-height: 40px; max-width: 100%;
+        transition: transform 0.3s ease;
+    }
+    .logo-item img:hover { transform: scale(1.1); }
+    /* .scroll-left { animation-name: scrollLeftInfiniteNews; } /* Applied directly now */
+    @keyframes scrollLeftInfiniteNews {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+</style>
+
+<section class="logo-carousel-container">
+    <div id="logoTrack" class="logo-carousel-track">
+        </div>
+</section>
+
+<script>
+    // News Outlet Logo Carousel Script
+    const logoTrack = document.getElementById('logoTrack');
+
+    const newsLogos = [
+        { src: "image/kominfo.png", alt: "Kominfo Logo" }, { src: "image/cnbc.png", alt: "CNBC Logo" },
+        { src: "image/idntimes.png", alt: "IDN Times Logo" }, { src: "image/liputan6.png", alt: "Liputan6 Logo" },
+        { src: "image/detikcom.png", alt: "Detikcom Logo" },
+        { src: "image/kompas.png", alt: "Kompas Logo" }, { src: "image/okezone.png", alt: "Okezone Logo" }
+    ];
+
+    if (logoTrack) {
+        function populateLogos() {
+            logoTrack.innerHTML = ''; // Clear if re-populating
+            const allLogos = [...newsLogos, ...newsLogos]; // Duplicate for seamless scroll
+            allLogos.forEach(logo => {
+                const div = document.createElement('div');
+                div.className = 'logo-item';
+                const img = document.createElement('img');
+                img.src = logo.src;
+                img.alt = logo.alt;
+                img.onerror = function() { this.src = `https://placehold.co/150x40/333333/FFFFFF?text=${logo.alt.replace(/\s/g, '+').replace(/\./g, '')}`; };
+                div.appendChild(img);
+                logoTrack.appendChild(div);
+            });
+        }
+        populateLogos();
+    } else {
+        // console.warn("logoTrack element not found in news_outlet.html after load.");
+    }
+</script>
