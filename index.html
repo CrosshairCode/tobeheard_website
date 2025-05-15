@@ -78,17 +78,15 @@
             overflow: hidden;
             position: relative;
             width: 100%;
-            background-color: #FFFFFF; /* Changed background to white */
-            padding: 2rem 0; /* Increased padding slightly for more vertical space */
-            border-top: 1px solid #E5E7EB; /* Optional: light border */
-            border-bottom: 1px solid #E5E7EB; /* Optional: light border */
+            background-color: #FFFFFF; 
+            padding: 2rem 0; 
+            border-top: 1px solid #E5E7EB; 
+            border-bottom: 1px solid #E5E7EB; 
         }
         .logo-carousel-track {
             display: flex;
             width: fit-content; 
-            animation-duration: 40s; 
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
+            animation: scrollLeftInfinite 30s linear infinite; /* Adjusted duration for potentially fewer logos */
         }
         
         .logo-item {
@@ -102,33 +100,20 @@
         .logo-item img {
             max-height: 40px; 
             max-width: 100%;
-            /* filter: grayscale(100%) brightness(300%); Removed to show original/blue color */
-            /* opacity: 0.7; */ /* Removed to show full opacity */
-            /* If logos are not blue, you might need a CSS filter to approximate blue, e.g.: */
-            /* filter: sepia(100%) hue-rotate(180deg) saturate(500%) brightness(70%); */
-            /* This is an approximation and works best on grayscale/black logos */
-            transition: transform 0.3s ease; /* Added hover effect for logos */
+            transition: transform 0.3s ease; 
         }
         .logo-item img:hover {
-            /* opacity: 1; */
-            /* filter: grayscale(0%) brightness(100%); */ /* Removed to keep blue on hover */
-            transform: scale(1.1); /* Example hover effect: slight zoom */
+            transform: scale(1.1); 
         }
 
-        .scroll-left {
+        /* Removed .scroll-right and @keyframes scrollRightInfinite */
+        .scroll-left { /* This class might not be strictly necessary if only one track uses the animation */
             animation-name: scrollLeftInfinite;
-        }
-        .scroll-right {
-            animation-name: scrollRightInfinite;
         }
 
         @keyframes scrollLeftInfinite {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); } 
-        }
-        @keyframes scrollRightInfinite {
-            0% { transform: translateX(-50%); } 
-            100% { transform: translateX(0); }   
         }
     </style>
 </head>
@@ -206,9 +191,7 @@
     </main>
 
     <section class="logo-carousel-container">
-        <div id="logoTrackTop" class="logo-carousel-track scroll-left">
-            </div>
-        <div id="logoTrackBottom" class="logo-carousel-track scroll-right mt-4 md:mt-6"> 
+        <div id="logoTrack" class="logo-carousel-track scroll-left">
             </div>
     </section>
 
@@ -448,44 +431,32 @@
         }
 
         // News Outlet Logo Carousel Script
-        const logoTrackTop = document.getElementById('logoTrackTop');
-        const logoTrackBottom = document.getElementById('logoTrackBottom');
+        const logoTrack = document.getElementById('logoTrack'); // Changed from logoTrackTop
 
         const newsLogos = [ 
             { src: "kominfo.png", alt: "Kominfo Logo" }, { src: "cnbc.png", alt: "CNBC Logo" },
             { src: "idntimes.png", alt: "IDN Times Logo" }, { src: "liputan6.png", alt: "Liputan6 Logo" },
-            { src: "idxchannel.png", alt: "IDX Channel Logo" }, { src: "linkedin.png", alt: "LinkedIn Logo" },
-            { src: "techinasia.png", alt: "Tech In Asia Logo" }, { src: "kumparan.png", alt: "Kumparan Logo" }, 
             { src: "detikcom.png", alt: "Detikcom Logo" },
-            { src: "kompas.png", alt: "Kompas Logo" }, { src: "dailysocial.png", alt: "DailySocial Logo" },
-            { src: "tribunnews.png", alt: "Tribunnews Logo" }, { src: "okezone.png", alt: "Okezone Logo" }
+            { src: "kompas.png", alt: "Kompas Logo" }, { src: "okezone.png", alt: "Okezone Logo" }
         ];
 
-        function populateLogoTrack(trackElement, logos, reverse = false) {
-            if (!trackElement) return;
-            trackElement.innerHTML = ''; 
-            let allLogos = [...logos, ...logos]; 
-            if (reverse) allLogos = allLogos.reverse(); 
-
-            allLogos.forEach(logo => {
-                const div = document.createElement('div');
-                div.className = 'logo-item';
-                const img = document.createElement('img');
-                img.src = logo.src; 
-                img.alt = logo.alt;
-                img.onerror = function() { this.src = `https://placehold.co/150x40/333333/FFFFFF?text=${logo.alt.replace(/\s/g, '+').replace(/\./g, '')}`; };
-                div.appendChild(img);
-                trackElement.appendChild(div);
-            });
+        if (logoTrack) { // Check if the single logoTrack element exists
+            function populateLogos() {
+                logoTrack.innerHTML = ''; 
+                const allLogos = [...newsLogos, ...newsLogos]; 
+                allLogos.forEach(logo => {
+                    const div = document.createElement('div');
+                    div.className = 'logo-item';
+                    const img = document.createElement('img');
+                    img.src = logo.src; 
+                    img.alt = logo.alt;
+                    img.onerror = function() { this.src = `https://placehold.co/150x40/333333/FFFFFF?text=${logo.alt.replace(/\s/g, '+').replace(/\./g, '')}`; };
+                    div.appendChild(img);
+                    logoTrack.appendChild(div);
+                });
+            }
+            populateLogos();
         }
-
-        const midPoint = Math.ceil(newsLogos.length / 2);
-        const topLogos = newsLogos.slice(0, midPoint);
-        const bottomLogos = newsLogos.slice(midPoint);
-
-        populateLogoTrack(logoTrackTop, topLogos);
-        populateLogoTrack(logoTrackBottom, bottomLogos);
-        
     </script>
 
 </body>
