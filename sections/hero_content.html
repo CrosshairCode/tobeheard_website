@@ -21,7 +21,7 @@
             text-decoration: none;
             transition: background-color 0.3s ease;
             height: 56px;
-            width: 160px; /* MODIFIED: Fixed width */
+            width: 160px; 
         }
         .app-store-btn:hover {
             background-color: #333;
@@ -45,17 +45,18 @@
            font-size: 1rem;
            line-height: 1.2rem;
            font-weight: 500;
+           white-space: nowrap;
         }
     </style>
 </head>
 <body class="bg-sky-100">
 
-    <section class="min-h-screen flex flex-col relative overflow-hidden">
+    <section class="flex flex-col relative overflow-hidden"> 
         <div class="absolute top-0 p-6 md:p-10 z-10 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0">
             <img src="image/tbh_logo.png" alt="TBH Logo" class="h-14 md:h-16" onerror="this.onerror=null;this.src='https://placehold.co/120x48/FFFFFF/000000?text=tbh_logo';">
         </div>
 
-        <div class="container mx-auto px-6 pt-32 pb-16 md:pt-44 md:pb-24 flex-grow flex items-center">
+        <div class="container mx-auto px-6 pt-28 pb-16 md:pt-40 md:pb-24 flex-grow flex items-center">
             <div class="flex flex-col lg:flex-row items-center justify-between w-full">
                 <div class="lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0 lg:pr-10 lg:pl-12">
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-800 mb-6 leading-tight">
@@ -64,7 +65,7 @@
                     <p class="text-lg md:text-xl text-slate-600 mb-10">
                         Connect with a Trusted Psychologist Today
                     </p>
-                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
                         <a href="#" class="app-store-btn">
                             <img src="image/app_store.png" alt="Apple Icon" class="icon" onerror="this.onerror=null;this.src='https://placehold.co/28x28/ffffff/000000?text=';">
                             <div class="text-content">
