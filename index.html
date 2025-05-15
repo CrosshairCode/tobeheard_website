@@ -45,33 +45,41 @@
         .testimonial-carousel-container { -webkit-overflow-scrolling: touch; }
         .testimonial-card { flex: 0 0 auto; }
         
-        .leadership-card-base { display: flex; flex-direction: column; align-items: center; }
+        /* Leadership card specific style */
+        .leadership-card-base { 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         .leadership-image-area { 
-            width: 12rem; /* w-48 */
+            width: 14rem; /* w-56 - Increased for wider blue shape */
             height: 16rem; /* h-64 */
             position: relative; 
-            margin-bottom: 1rem; 
-            margin-top: 1.5rem; 
+            margin-bottom: 1rem; /* mb-4 */
+            /* margin-top: 1.5rem; Removed as icons are gone */
+            display: flex; /* To center the image */
+            justify-content: center; /* Center image horizontally */
+            align-items: center; /* Center image vertically */
         }
         .leadership-image { 
-            width: 100%; height: 100%; object-fit: cover; 
-            border-radius: 0.75rem; position: relative; z-index: 10; 
+            width: 12rem; /* w-48 - Image is narrower than its container */
+            height: 100%; 
+            object-fit: cover; 
+            border-radius: 0.75rem; /* rounded-xl */
+            position: relative; 
+            z-index: 10; 
         }
         .leadership-blue-shape { 
-            position: absolute; bottom: 0; left: 0; right: 0;
-            height: 65%; background-color: #111769; 
-            border-radius: 1.5rem; z-index: 5; 
+            position: absolute; 
+            bottom: 0; 
+            left: 0; /* Spans the full 14rem width of leadership-image-area */
+            right: 0;/* Spans the full 14rem width of leadership-image-area */
+            height: 65%; 
+            background-color: #111769; 
+            border-radius: 1.5rem; /* rounded-3xl */
+            z-index: 5; 
         }
-        .leadership-main-icon-float { 
-            position: absolute; background-color: #FFFFFF; 
-            border-radius: 50%; padding: 0.75rem; 
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); z-index: 20; 
-        }
-        .leadership-surrounding-icon-float { 
-            position: absolute; background-color: #FFFFFF; 
-            border-radius: 50%; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
-            z-index: 15; display: flex; align-items: center; justify-content: center;
-        }
+        /* .leadership-main-icon-float and .leadership-surrounding-icon-float classes removed */
 
         /* News Outlet Logo Scroll */
         .logo-carousel-container {
@@ -86,7 +94,7 @@
         .logo-carousel-track {
             display: flex;
             width: fit-content; 
-            animation: scrollLeftInfinite 30s linear infinite; /* Adjusted duration for potentially fewer logos */
+            animation: scrollLeftInfinite 30s linear infinite;
         }
         
         .logo-item {
@@ -105,12 +113,9 @@
         .logo-item img:hover {
             transform: scale(1.1); 
         }
-
-        /* Removed .scroll-right and @keyframes scrollRightInfinite */
-        .scroll-left { /* This class might not be strictly necessary if only one track uses the animation */
+        .scroll-left { 
             animation-name: scrollLeftInfinite;
         }
-
         @keyframes scrollLeftInfinite {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); } 
@@ -210,20 +215,14 @@
     <section class="bg-white py-16 md:py-24 relative z-10">
         <div class="container mx-auto px-6 lg:px-8">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-16 md:mb-20 text-left">Leadership</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-16 text-center"> 
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-16 text-center"> 
                 
                 <div class="leadership-card-base">
                     <div class="leadership-image-area">
-                        <div class="leadership-main-icon-float" style="top: -1rem; left: -2.5rem; transform: rotate(-15deg);">
-                            <i class="fas fa-lightbulb fa-2x text-yellow-500"></i>
-                        </div>
                         <img src="puti_alvina_kayla_haryanto.png" alt="Puti Alvina Kayla Haryanto" 
                              class="leadership-image"
                              onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Puti+A.+K.+H.';">
                         <div class="leadership-blue-shape"></div>
-                        <div class="leadership-surrounding-icon-float p-2" style="top: 10%; right: -20%; transform: rotate(20deg);"><i class="fas fa-star text-yellow-500 text-sm"></i></div>
-                        <div class="leadership-surrounding-icon-float p-1" style="top: 45%; left: -25%; transform: rotate(-10deg);"><i class="fas fa-users text-yellow-500 text-xs"></i></div>
-                        <div class="leadership-surrounding-icon-float p-1.5" style="top: 5%; right: 20%; transform: rotate(5deg);"><i class="fas fa-chart-line text-yellow-500 text-xs"></i></div>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mt-2">Puti Alvina Kayla Haryanto</h3>
                     <p class="text-sm text-gray-600">Founder, Chief Executive Office</p>
@@ -231,16 +230,10 @@
 
                 <div class="leadership-card-base">
                     <div class="leadership-image-area">
-                         <div class="leadership-main-icon-float" style="top: -1rem; right: -2.5rem; transform: rotate(15deg);">
-                            <i class="fas fa-bullhorn fa-2x text-red-500"></i>
-                        </div>
                         <img src="tiara_naya_kabita.png" alt="Tiara naya kabita" 
                              class="leadership-image"
                              onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Tiara+N.+K.';">
                         <div class="leadership-blue-shape"></div>
-                        <div class="leadership-surrounding-icon-float p-1.5" style="top: 15%; left: -22%; transform: rotate(-20deg);"><i class="fas fa-comments text-red-500 text-xs"></i></div>
-                        <div class="leadership-surrounding-icon-float p-1" style="top: 50%; right: -25%; transform: rotate(8deg);"><i class="fas fa-mouse-pointer text-red-500 text-xs"></i></div>
-                        <div class="leadership-surrounding-icon-float p-2" style="top: 0%; left: 15%; transform: rotate(25deg);"><i class="fas fa-palette text-red-500 text-sm"></i></div>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mt-2">Tiara naya kabita</h3>
                     <p class="text-sm text-gray-600">Founder, Chief Marketing Office</p>
@@ -248,16 +241,10 @@
 
                 <div class="leadership-card-base">
                     <div class="leadership-image-area">
-                        <div class="leadership-main-icon-float" style="top: 20%; left: -2.8rem; transform: rotate(-10deg) translateY(-50%);"> 
-                            <i class="fas fa-calculator fa-2x text-green-500"></i>
-                        </div>
                          <img src="jonathan_sumana.png" alt="Jonathan Sumana" 
                              class="leadership-image"
                              onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Jonathan+S.';">
                         <div class="leadership-blue-shape"></div>
-                        <div class="leadership-surrounding-icon-float p-1" style="top: 0%; right: -18%; transform: rotate(10deg);"><i class="fas fa-coins text-green-500 text-xs"></i></div>
-                        <div class="leadership-surrounding-icon-float p-2" style="top: 40%; left: -30%; transform: rotate(-15deg);"><i class="fas fa-file-invoice-dollar text-green-500 text-sm"></i></div>
-                        <div class="leadership-surrounding-icon-float p-1.5" style="top: 15%; right: 15%; transform: rotate(20deg);"><i class="fas fa-chart-pie text-green-500 text-xs"></i></div>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mt-2">Jonathan Sumana</h3>
                     <p class="text-sm text-gray-600">Chief Financial Office</p>
@@ -265,16 +252,10 @@
 
                 <div class="leadership-card-base">
                      <div class="leadership-image-area">
-                        <div class="leadership-main-icon-float" style="top: 25%; right: -2.8rem; transform: rotate(10deg) translateY(-50%);"> 
-                            <i class="fas fa-code fa-2x text-blue-500"></i>
-                        </div>
                         <img src="gavin_gunardi.png" alt="Gavin Gunardi" 
                              class="leadership-image"
                              onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Gavin+G.';">
                         <div class="leadership-blue-shape"></div>
-                        <div class="leadership-surrounding-icon-float p-2" style="top: 10%; left: -28%; transform: rotate(-22deg);"><i class="fas fa-laptop-code text-blue-500 text-sm"></i></div>
-                        <div class="leadership-surrounding-icon-float p-1.5" style="top: 45%; right: -30%; transform: rotate(18deg);"><i class="fas fa-microchip text-blue-500 text-xs"></i></div>
-                        <div class="leadership-surrounding-icon-float p-1" style="top: 0%; left: 18%; transform: rotate(35deg);"><i class="fas fa-server text-blue-500 text-xs"></i></div>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-800 mt-2">Gavin Gunardi</h3>
                     <p class="text-sm text-gray-600">Chief Technical Office</p>
@@ -431,7 +412,7 @@
         }
 
         // News Outlet Logo Carousel Script
-        const logoTrack = document.getElementById('logoTrack'); // Changed from logoTrackTop
+        const logoTrack = document.getElementById('logoTrack'); 
 
         const newsLogos = [ 
             { src: "kominfo.png", alt: "Kominfo Logo" }, { src: "cnbc.png", alt: "CNBC Logo" },
@@ -440,7 +421,7 @@
             { src: "kompas.png", alt: "Kompas Logo" }, { src: "okezone.png", alt: "Okezone Logo" }
         ];
 
-        if (logoTrack) { // Check if the single logoTrack element exists
+        if (logoTrack) { 
             function populateLogos() {
                 logoTrack.innerHTML = ''; 
                 const allLogos = [...newsLogos, ...newsLogos]; 
