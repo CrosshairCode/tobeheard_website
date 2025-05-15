@@ -1,40 +1,93 @@
-<style>
-    /* Styles specific to hero text and elements */
-    .hero-subtext { color: #4B5563; }
-    .hero-heading-text { color: #111827; }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .app-store-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            height: 56px;
+            min-width: 160px;
+        }
+        .app-store-btn:hover {
+            background-color: #333;
+        }
+        .app-store-btn img.icon {
+            height: 1.75rem;
+            width: 1.75rem;
+            margin-right: 0.75rem;
+        }
+        .app-store-btn .text-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.2;
+        }
+        .app-store-btn .text-xs {
+            font-size: 0.7rem;
+            line-height: 0.9rem;
+        }
+        .app-store-btn .text-lg {
+           font-size: 1rem;
+           line-height: 1.2rem;
+           font-weight: 500;
+        }
+    </style>
+</head>
+<body class="bg-sky-100">
 
-<div class="flex flex-col md:flex-row items-center md:items-start">
-    <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10 md:pl-16 lg:md:pl-20 md:pt-12">
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight hero-heading-text">
-            Let us in on what you've kept&nbsp;inside.
-        </h1>
-        <p class="text-lg hero-subtext mb-8">
-            Connect with a Trusted Psychologist Today.
-        </p>
-        <div class="flex flex-row justify-center md:justify-start space-x-3 sm:space-x-4">
-            <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center justify-center shadow-md">
-                <img src="image/app_store.png" alt="App Store Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=&fontsize=20';">
-                <div class="text-left">
-                    <div class="text-xs">Available on the</div>
-                    <div class="text-sm sm:text-lg font-semibold">App Store</div>
-                </div>
-            </a>
-            <a href="#" class="bg-black text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-gray-700 transition duration-300 flex items-center justify-center shadow-md">
-                <img src="image/play_store.png" alt="Google Play Icon" class="w-5 h-5 sm:w-6 sm:h-6 mr-1 sm:mr-2 rounded flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/30x30/ffffff/000000?text=▶&fontsize=20';">
-                <div class="text-left">
-                    <div class="text-xs">GET IT ON</div>
-                    <div class="text-sm sm:text-lg font-semibold">Google Play</div>
-                </div>
-            </a>
+    <section class="min-h-screen flex flex-col relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 p-6 md:p-10 z-10">
+            <img src="image/tbh_logo.png" alt="TBH Logo" class="h-14 md:h-16" onerror="this.onerror=null;this.src='https://placehold.co/120x48/FFFFFF/000000?text=tbh_logo';">
         </div>
-    </div>
-<div class="w-full md:w-1/2 flex justify-end items-end mt-10 md:mt-0 overflow-hidden p-0 m-0">
-    <img src="image/app_screenshot.png"
-         alt="Phone App Screenshot"
-         class="max-w-full h-auto m-0 p-0 object-right"
-         style="z-index: 5; display: block;">
-</div>
 
+        <div class="container mx-auto px-6 py-16 md:py-24 flex-grow flex items-center">
+            <div class="flex flex-col lg:flex-row items-center justify-between w-full">
+                <div class="lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0 lg:pr-10 lg:pl-12">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-800 mb-6 leading-tight">
+                        Let us in on what you've kept inside.
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 mb-10">
+                        Connect with a Trusted Psychologist Today
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#" class="app-store-btn">
+                            <img src="image/app_store.png" alt="Apple Icon" class="icon" onerror="this.onerror=null;this.src='https://placehold.co/28x28/ffffff/000000?text=';">
+                            <div class="text-content">
+                                <span class="text-xs">Available on the</span>
+                                <span class="text-lg">App Store</span>
+                            </div>
+                        </a>
+                        <a href="#" class="app-store-btn">
+                            <img src="image/play_store.png" alt="Google Play Icon" class="icon" onerror="this.onerror=null;this.src='https://placehold.co/28x28/ffffff/000000?text=▶';">
+                            <div class="text-content">
+                                <span class="text-xs">GET IT ON</span>
+                                <span class="text-lg">Google Play</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
 
-</div>
+                <div class="lg:w-1/2 flex justify-center lg:justify-end relative lg:pr-4">
+                    <img src="image/app_screenshot.png" alt="App Screenshot" class="max-w-md md:max-w-lg lg:max-w-xl" onerror="this.onerror=null;this.src='https://placehold.co/320x640/CCCCCC/FFFFFF?text=App+Screenshot';">
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
