@@ -37,89 +37,87 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Crucial for preventing horizontal scroll on the page */
         }
         .main-content-wrapper { flex-grow: 1; }
         .mobile-menu-bg { background-color: #a8d3e0; }
-
-        .testimonial-carousel-container { -webkit-overflow-scrolling: touch; }
-        .testimonial-card { flex: 0 0 auto; }
         
         /* Leadership card specific style */
-        .leadership-card-base { 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        .leadership-card-base { display: flex; flex-direction: column; align-items: center; }
         .leadership-image-area { 
-            width: 14rem; /* w-56 - Increased for wider blue shape */
-            height: 16rem; /* h-64 */
+            width: 14rem; 
+            height: 16rem; 
             position: relative; 
-            margin-bottom: 1rem; /* mb-4 */
-            /* margin-top: 1.5rem; Removed as icons are gone */
-            display: flex; /* To center the image */
-            justify-content: center; /* Center image horizontally */
-            align-items: center; /* Center image vertically */
+            margin-bottom: 1rem; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
         }
         .leadership-image { 
-            width: 12rem; /* w-48 - Image is narrower than its container */
+            width: 12rem; 
             height: 100%; 
             object-fit: cover; 
-            border-radius: 0.75rem; /* rounded-xl */
-            position: relative; 
-            z-index: 10; 
+            border-radius: 0.75rem; position: relative; z-index: 10; 
         }
         .leadership-blue-shape { 
-            position: absolute; 
-            bottom: 0; 
-            left: 0; /* Spans the full 14rem width of leadership-image-area */
-            right: 0;/* Spans the full 14rem width of leadership-image-area */
-            height: 65%; 
-            background-color: #111769; 
-            border-radius: 1.5rem; /* rounded-3xl */
-            z-index: 5; 
+            position: absolute; bottom: 0; left: 0; right: 0;
+            height: 65%; background-color: #111769; 
+            border-radius: 1.5rem; z-index: 5; 
         }
-        /* .leadership-main-icon-float and .leadership-surrounding-icon-float classes removed */
 
         /* News Outlet Logo Scroll */
         .logo-carousel-container {
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-            background-color: #FFFFFF; 
-            padding: 2rem 0; 
-            border-top: 1px solid #E5E7EB; 
-            border-bottom: 1px solid #E5E7EB; 
+            overflow: hidden; position: relative; width: 100%;
+            background-color: #FFFFFF; padding: 2rem 0; 
+            border-top: 1px solid #E5E7EB; border-bottom: 1px solid #E5E7EB; 
         }
         .logo-carousel-track {
-            display: flex;
-            width: fit-content; 
+            display: flex; width: fit-content; 
             animation: scrollLeftInfinite 30s linear infinite;
         }
-        
         .logo-item {
-            flex-shrink: 0;
-            width: 150px; 
-            margin: 0 25px; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-shrink: 0; width: 150px; margin: 0 25px; 
+            display: flex; align-items: center; justify-content: center;
         }
         .logo-item img {
-            max-height: 40px; 
-            max-width: 100%;
+            max-height: 40px; max-width: 100%;
             transition: transform 0.3s ease; 
         }
-        .logo-item img:hover {
-            transform: scale(1.1); 
-        }
-        .scroll-left { 
-            animation-name: scrollLeftInfinite;
-        }
+        .logo-item img:hover { transform: scale(1.1); }
+        .scroll-left { animation-name: scrollLeftInfinite; }
         @keyframes scrollLeftInfinite {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); } 
         }
+
+        /* Testimonial Carousel specific styles */
+        .testimonial-carousel-viewport { /* New wrapper to hide non-visible cards */
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+        .testimonial-carousel-track { /* Renamed from testimonial-carousel-container */
+            display: flex;
+            position: relative;
+            transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Smooth slide with easing */
+        }
+        .testimonial-card {
+            flex-shrink: 0;
+            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            opacity: 0.6;
+            transform: scale(0.85);
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            margin: 0 0.5rem; /* Add some margin between cards */
+        }
+        .testimonial-card.is-center {
+            opacity: 1;
+            transform: scale(1.05); /* Magnifying effect */
+            z-index: 10; /* Ensure it's on top */
+        }
+         /* Hide scrollbar for the track if it somehow becomes scrollable by mouse */
+        .testimonial-carousel-track::-webkit-scrollbar { display: none; }
+        .testimonial-carousel-track { -ms-overflow-style: none; scrollbar-width: none; }
+
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -219,7 +217,7 @@
                 
                 <div class="leadership-card-base">
                     <div class="leadership-image-area">
-                        <img src="puti_alvina_kayla_haryanto.png" alt="Puti Alvina Kayla Haryanto" 
+                        <img src="kayla.png" alt="Puti Alvina Kayla Haryanto" 
                              class="leadership-image"
                              onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Puti+A.+K.+H.';">
                         <div class="leadership-blue-shape"></div>
@@ -264,15 +262,14 @@
         </div>
     </section>
 
-    <section class="bg-white relative z-0 shadow-lg pt-0"> 
-        <div class="container mx-auto px-6 lg:px-8 py-16 md:py-24 text-center">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">What Our Users Say</h2>
+    <section class="bg-white relative z-0 shadow-lg pt-0 pb-16 md:pb-24"> 
+        <div class="container mx-auto px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-gray-800 mb-4 mt-12">What Our Users Say</h2>
             <p class="text-gray-600 max-w-2xl mx-auto mb-12">
                 Hear from individuals who have found support and growth with us.
             </p>
             
-            <div class="relative">
-                <div id="testimonialCarousel" class="testimonial-carousel-container flex overflow-x-auto pb-4">
+            <div class="testimonial-carousel-viewport"> <div id="testimonialTrack" class="testimonial-carousel-track">
                     </div>
             </div>
         </div>
@@ -338,9 +335,10 @@
         }
 
         // Testimonial Carousel Script
-        const testimonial_carousel = document.getElementById('testimonialCarousel'); 
+        const testimonialTrack = document.getElementById('testimonialTrack'); 
 
         const testimonialsData = [
+            // ... (your existing testimonialsData array) ...
             { imgSrc: "https://placehold.co/80x80/E0F2FE/1F2937?text=Woman", alt: "User Jane S.", name: "Jane S.", stars: 5, review: "This app has been a game-changer for my mental well-being. The therapists are so understanding and provide practical advice. Highly recommend!" },
             { isAnonymous: true, name: "Anonymous", stars: 4, review: "I was hesitant at first, but finding a safe space to talk has made a huge difference. The anonymity option was really important for me." },
             { imgSrc: "https://placehold.co/80x80/D1FAE5/065F46?text=Man", alt: "User Mark A.", name: "Mark A.", stars: 4.5, review: "The variety of resources and the quality of the consultations exceeded my expectations. It's easy to use and truly helpful." },
@@ -363,9 +361,11 @@
             return starsHTML;
         }
         
-        function createTestimonialCard(testimonial) {
+        function createTestimonialCard(testimonial, index) { // Added index parameter
             const cardDiv = document.createElement('div');
-            cardDiv.className = "testimonial-card w-10/12 sm:w-[47%] md:w-[31.5%] lg:w-[31.5%] p-2 flex-shrink-0"; 
+            // Adjust width for 3 cards on lg, 2 on md, 1 on sm
+            cardDiv.className = "testimonial-card w-full sm:w-1/2 md:w-[calc(100%/2-1rem)] lg:w-[calc(100%/3-1rem)] p-2 flex-shrink-0 box-border"; 
+            cardDiv.dataset.index = index; // Store original index
             
             let profileImageHTML = '';
             if (testimonial.isAnonymous) {
@@ -385,17 +385,118 @@
             return cardDiv;
         }
 
-        if (testimonial_carousel) { 
-            function populateTestimonialCards() {
-                testimonial_carousel.innerHTML = ''; 
-                testimonialsData.forEach(testimonial => {
-                    testimonial_carousel.appendChild(createTestimonialCard(testimonial));
+        if (testimonialTrack) { 
+            let currentIndex = 0;
+            let autoSlideInterval;
+            const numOriginalCards = testimonialsData.length;
+            let cardWidth = 0; // Will be calculated
+
+            function calculateCardWidthAndOffset() {
+                const firstCard = testimonialTrack.querySelector('.testimonial-card');
+                if (firstCard) {
+                    const style = window.getComputedStyle(firstCard);
+                    const marginLeft = parseInt(style.marginLeft) || 0;
+                    const marginRight = parseInt(style.marginRight) || 0;
+                    cardWidth = firstCard.offsetWidth + marginLeft + marginRight;
+                } else { // Fallback
+                    const viewportWidth = testimonialTrack.parentElement.offsetWidth;
+                    if (window.innerWidth >= 1024) cardWidth = viewportWidth / 3;
+                    else if (window.innerWidth >= 768) cardWidth = viewportWidth / 2;
+                    else cardWidth = viewportWidth;
+                }
+            }
+            
+            function updateCarousel() {
+                if (!testimonialTrack || cardWidth === 0) return;
+
+                const offsetToCenter = (testimonialTrack.parentElement.offsetWidth - (cardWidth * 3)) / 2; // For 3 cards
+                let newTransform = - (currentIndex * cardWidth) + offsetToCenter;
+
+                // On smaller screens, center one card
+                if (window.innerWidth < 768) { // sm breakpoint
+                     newTransform = - (currentIndex * cardWidth) + (testimonialTrack.parentElement.offsetWidth - cardWidth) / 2;
+                } else if (window.innerWidth < 1024) { // md breakpoint, center 2 cards (approx)
+                     newTransform = - (currentIndex * cardWidth) + (testimonialTrack.parentElement.offsetWidth - (cardWidth * 2)) / 2 + (cardWidth/2);
+                }
+
+
+                testimonialTrack.style.transform = `translateX(${newTransform}px)`;
+
+                const allCards = testimonialTrack.querySelectorAll('.testimonial-card');
+                allCards.forEach((card, i) => {
+                    card.classList.remove('is-center');
+                    // Determine which card is logically the middle one based on currentIndex
+                    // This logic needs to be robust for infinite scroll with clones
+                    // For now, let's assume the card at 'currentIndex' is the one to be magnified if it's the middle of 3
+                    // The actual middle card index in the DOM might be currentIndex + number of prepended clones
+                    const logicalMiddleIndex = currentIndex + 1; // If 3 cards are shown, the middle one is at index 1 of the visible set
+
+                    if (i === logicalMiddleIndex && window.innerWidth >=1024) { // Magnify only on large screens where 3 are visible
+                         card.classList.add('is-center');
+                    } else if (i === currentIndex && window.innerWidth < 1024) { // On smaller screens, magnify the single visible card
+                         card.classList.add('is-center');
+                    }
                 });
+            }
+
+            function populateAndClone() {
+                testimonialTrack.innerHTML = ''; // Clear
+                const originalCards = testimonialsData.map((data, i) => createTestimonialCard(data, i));
+                
+                // For infinite scroll, clone items at the beginning and end
+                // Number of clones should be enough to fill the view on either side (e.g., 3)
+                const numClones = Math.min(3, numOriginalCards);
+
+                for (let i = 0; i < numClones; i++) {
+                    testimonialTrack.appendChild(originalCards[numOriginalCards - 1 - i].cloneNode(true));
+                }
+                originalCards.forEach(card => testimonialTrack.appendChild(card));
+                for (let i = 0; i < numClones; i++) {
+                    testimonialTrack.appendChild(originalCards[i].cloneNode(true));
+                }
+                
+                calculateCardWidthAndOffset();
+                // Initial position: show the first "real" card (index `numClones`) as the start of the view
+                currentIndex = 0; // Start with the first original card logically
+                testimonialTrack.style.transform = `translateX(${- (numClones * cardWidth) + ((testimonialTrack.parentElement.offsetWidth - cardWidth) / 2)}px)`; // Adjust for centering
+                updateCarousel(); // Apply initial styles
+            }
+
+
+            function autoSlide() {
+                currentIndex++;
+                updateCarousel();
+
+                // Handle infinite loop jump
+                if (currentIndex >= numOriginalCards) {
+                    setTimeout(() => {
+                        testimonialTrack.style.transition = 'none'; // Disable transition for instant jump
+                        currentIndex = 0;
+                        updateCarousel();
+                        // Force reflow
+                        testimonialTrack.offsetHeight; 
+                        testimonialTrack.style.transition = 'transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
+                    }, 700); // After slide animation
+                }
+            }
+
+            function startAutoSlide() {
+                stopAutoSlide();
+                autoSlideInterval = setInterval(autoSlide, 3000);
+            }
+
+            function stopAutoSlide() {
+                clearInterval(autoSlideInterval);
             }
             
             function initializeTestimonialCarousel() {
-                populateTestimonialCards();
+                populateAndClone(); // This function now also calculates cardWidth
+                startAutoSlide();
             }
+
+            // testimonialTrack.addEventListener('mouseenter', stopAutoSlide);
+            // testimonialTrack.addEventListener('mouseleave', startAutoSlide);
+
 
             window.addEventListener('load', initializeTestimonialCarousel);
             if (document.readyState === 'complete') { 
@@ -404,6 +505,7 @@
             
             let resizeTimeoutTestimonial;
             window.addEventListener('resize', () => {
+                stopAutoSlide();
                 clearTimeout(resizeTimeoutTestimonial);
                 resizeTimeoutTestimonial = setTimeout(() => {
                     initializeTestimonialCarousel(); 
