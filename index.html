@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TBH Hero Section & Footer</title>
+    <title>TBH Hero, Leadership, Testimonials & Footer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -53,6 +53,7 @@
             margin: 0;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
         .main-content-wrapper { 
             flex-grow: 1;
@@ -69,6 +70,59 @@
         .testimonial-card {
             flex: 0 0 auto; 
         }
+        
+        /* Leadership card specific style */
+        .leadership-card-base { 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .leadership-image-area { 
+            width: 14rem; /* w-56 - Increased from 12rem to make blue shape wider */
+            height: 16rem; /* h-64, approx 3:4 aspect ratio */
+            position: relative; 
+            margin-bottom: 1rem; /* mb-4 */
+            margin-top: 1.5rem; 
+            display: flex; /* Added to center the image child */
+            justify-content: center; /* Center image horizontally */
+            align-items: center; /* Center image vertically if its height is less */
+        }
+        .leadership-image { 
+            width: 12rem; /* w-48 - Explicit width for the image itself, narrower than its container */
+            height: 100%; /* Image takes full height of its area */
+            object-fit: cover; 
+            border-radius: 0.75rem; /* rounded-xl */
+            position: relative; 
+            z-index: 10; 
+        }
+        .leadership-blue-shape { 
+            position: absolute;
+            bottom: 0;
+            left: 0; /* Will span the full width of the 14rem leadership-image-area */
+            right: 0;/* Will span the full width of the 14rem leadership-image-area */
+            height: 65%; 
+            background-color: #111769; 
+            border-radius: 1.5rem; /* rounded-3xl */
+            z-index: 5; 
+        }
+        .leadership-main-icon-float { 
+            position: absolute;
+            background-color: #FFFFFF; 
+            border-radius: 50%;
+            padding: 0.75rem; /* p-3 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            z-index: 20; 
+        }
+        .leadership-surrounding-icon-float { 
+            position: absolute;
+            background-color: #FFFFFF; 
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+            z-index: 15; 
+            display: flex; 
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -79,13 +133,11 @@
                 <div class="text-3xl font-bold z-20 ml-6"> 
                     <img src="tbh_logo.png" alt="tbh logo" class="h-16 w-auto">
                 </div>
-
                 <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden md:flex space-x-8 z-20">
                     <a href="#" class="hero-nav-link hover:text-gray-900">Mission</a>
                     <a href="#" class="hero-nav-link hover:text-gray-900">Product</a>
                     <a href="#" class="hero-nav-link hover:text-gray-900">Leadership</a>
                 </div>
-
                 <div class="relative z-30 flex items-center justify-end w-auto mr-2 sm:mr-4">
                     <div class="md:hidden">
                         <button id="hamburgerButton" class="text-gray-700 focus:outline-none p-2 rounded-md hover:bg-blue-200">
@@ -94,7 +146,6 @@
                     </div>
                 </div>
             </nav>
-
             <div id="mobileMenu" class="hidden md:hidden fixed inset-0 mobile-menu-bg p-6 z-50">
                 <div class="flex justify-between items-center mb-8">
                     <div class="text-3xl font-bold"> 
@@ -110,7 +161,6 @@
                     <a href="#" class="text-gray-700 hover:text-gray-900 text-lg py-2">Leadership</a>
                 </nav>
             </div>
-
             <div class="flex flex-col md:flex-row items-center md:items-start">
                 <div class="md:w-1/2 text-center md:text-left mb-10 md:mb-0 md:pr-10 md:pl-16 lg:md:pl-20 md:pt-12">
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight hero-heading-text">
@@ -135,7 +185,6 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="w-full md:w-1/2 flex justify-end items-end mt-10 md:mt-0"> 
                     <img src="app_screenshot.png"
                          alt="Phone App Screenshot"
@@ -149,7 +198,83 @@
         </div>
     </main>
 
-    <section class="bg-white relative z-0 shadow-lg">
+    <section class="bg-white py-16 md:py-24 relative z-10">
+        <div class="container mx-auto px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-16 md:mb-20 text-left">Leadership</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16 text-center"> 
+                
+                <div class="leadership-card-base">
+                    <div class="leadership-image-area">
+                        <div class="leadership-main-icon-float" style="top: -1rem; left: -2.5rem; transform: rotate(-15deg);">
+                            <i class="fas fa-lightbulb fa-2x text-yellow-500"></i>
+                        </div>
+                        <img src="puti_alvina_kayla_haryanto.png" alt="Puti Alvina Kayla Haryanto" 
+                             class="leadership-image"
+                             onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Puti+A.+K.+H.';">
+                        <div class="leadership-blue-shape"></div>
+                        <div class="leadership-surrounding-icon-float p-2" style="top: 10%; right: -20%; transform: rotate(20deg);"><i class="fas fa-star text-yellow-500 text-sm"></i></div>
+                        <div class="leadership-surrounding-icon-float p-1" style="top: 45%; left: -25%; transform: rotate(-10deg);"><i class="fas fa-users text-yellow-500 text-xs"></i></div>
+                        <div class="leadership-surrounding-icon-float p-1.5" style="top: 5%; right: 20%; transform: rotate(5deg);"><i class="fas fa-chart-line text-yellow-500 text-xs"></i></div>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 mt-2">Puti Alvina Kayla Haryanto</h3>
+                    <p class="text-sm text-gray-600">Founder, Chief Executive Office</p>
+                </div>
+
+                <div class="leadership-card-base">
+                    <div class="leadership-image-area">
+                         <div class="leadership-main-icon-float" style="top: -1rem; right: -2.5rem; transform: rotate(15deg);">
+                            <i class="fas fa-bullhorn fa-2x text-red-500"></i>
+                        </div>
+                        <img src="tiara_naya_kabita.png" alt="Tiara naya kabita" 
+                             class="leadership-image"
+                             onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Tiara+N.+K.';">
+                        <div class="leadership-blue-shape"></div>
+                        <div class="leadership-surrounding-icon-float p-1.5" style="top: 15%; left: -22%; transform: rotate(-20deg);"><i class="fas fa-comments text-red-500 text-xs"></i></div>
+                        <div class="leadership-surrounding-icon-float p-1" style="top: 50%; right: -25%; transform: rotate(8deg);"><i class="fas fa-mouse-pointer text-red-500 text-xs"></i></div>
+                        <div class="leadership-surrounding-icon-float p-2" style="top: 0%; left: 15%; transform: rotate(25deg);"><i class="fas fa-palette text-red-500 text-sm"></i></div>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 mt-2">Tiara naya kabita</h3>
+                    <p class="text-sm text-gray-600">Founder, Chief Marketing Office</p>
+                </div>
+
+                <div class="leadership-card-base">
+                    <div class="leadership-image-area">
+                        <div class="leadership-main-icon-float" style="top: 20%; left: -2.8rem; transform: rotate(-10deg) translateY(-50%);"> 
+                            <i class="fas fa-calculator fa-2x text-green-500"></i>
+                        </div>
+                         <img src="jonathan_sumana.png" alt="Jonathan Sumana" 
+                             class="leadership-image"
+                             onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Jonathan+S.';">
+                        <div class="leadership-blue-shape"></div>
+                        <div class="leadership-surrounding-icon-float p-1" style="top: 0%; right: -18%; transform: rotate(10deg);"><i class="fas fa-coins text-green-500 text-xs"></i></div>
+                        <div class="leadership-surrounding-icon-float p-2" style="top: 40%; left: -30%; transform: rotate(-15deg);"><i class="fas fa-file-invoice-dollar text-green-500 text-sm"></i></div>
+                        <div class="leadership-surrounding-icon-float p-1.5" style="top: 15%; right: 15%; transform: rotate(20deg);"><i class="fas fa-chart-pie text-green-500 text-xs"></i></div>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 mt-2">Jonathan Sumana</h3>
+                    <p class="text-sm text-gray-600">Chief Financial Office</p>
+                </div>
+
+                <div class="leadership-card-base">
+                     <div class="leadership-image-area">
+                        <div class="leadership-main-icon-float" style="top: 25%; right: -2.8rem; transform: rotate(10deg) translateY(-50%);"> 
+                            <i class="fas fa-code fa-2x text-blue-500"></i>
+                        </div>
+                        <img src="gavin_gunardi.png" alt="Gavin Gunardi" 
+                             class="leadership-image"
+                             onerror="this.onerror=null;this.src='https://placehold.co/192x256/CCCCCC/777777?text=Gavin+G.';">
+                        <div class="leadership-blue-shape"></div>
+                        <div class="leadership-surrounding-icon-float p-2" style="top: 10%; left: -28%; transform: rotate(-22deg);"><i class="fas fa-laptop-code text-blue-500 text-sm"></i></div>
+                        <div class="leadership-surrounding-icon-float p-1.5" style="top: 45%; right: -30%; transform: rotate(18deg);"><i class="fas fa-microchip text-blue-500 text-xs"></i></div>
+                        <div class="leadership-surrounding-icon-float p-1" style="top: 0%; left: 18%; transform: rotate(35deg);"><i class="fas fa-server text-blue-500 text-xs"></i></div>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-800 mt-2">Gavin Gunardi</h3>
+                    <p class="text-sm text-gray-600">Chief Technical Office</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white relative z-0 shadow-lg pt-0"> 
         <div class="container mx-auto px-6 lg:px-8 py-16 md:py-24 text-center">
             <h2 class="text-3xl font-bold text-gray-800 mb-4">What Our Users Say</h2>
             <p class="text-gray-600 max-w-2xl mx-auto mb-12">
